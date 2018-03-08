@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "admin/home": {
+      "path": "/admin/"
+    }
+  },
+  "extensions": {
+    "admin/home": {
+      "component": "index"
+    }
+  }
+}

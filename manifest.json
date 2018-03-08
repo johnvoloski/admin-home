@@ -1,0 +1,22 @@
+{
+  "name": "admin-home",
+  "vendor": "vtex",
+  "version": "0.0.0",
+  "title": "VTEX Admin Home",
+  "description": "The home for your VTEX admin",
+  "mustUpdateAt": "2019-03-01",
+  "categories": [],
+  "registries": [
+    "smartcheckout"
+  ],
+  "settingsSchema": {},
+  "dependencies": {},
+  "scripts": {
+    "prereleasy": "./lint.sh",
+    "postreleasy": "vtex publish --public --verbose"
+  },
+  "builders": {
+    "pages": "0.x",
+    "react": "2.x"
+  }
+}
