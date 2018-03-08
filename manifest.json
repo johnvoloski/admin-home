@@ -10,10 +10,12 @@
     "smartcheckout"
   ],
   "settingsSchema": {},
-  "dependencies": {},
   "scripts": {
     "prereleasy": "./lint.sh",
     "postreleasy": "vtex publish --public --verbose"
+  },
+  "dependencies": {
+    "vtex.admin-graphql": "0.x"
   },
   "builders": {
     "pages": "0.x",

@@ -1,0 +1,35 @@
+query homeDataQuery($productsTimePeriod: Int, $pagePath: String, $loadTimePeriod: Int) {
+  mostVisitedProductsNoStock(timePeriod: $productsTimePeriod) {
+    totalProductCount
+    products {
+      id
+    }
+  }
+  pendingOrders {
+    paging {
+      total
+    }
+  }
+  pendingBankSlips {
+    count
+    currencyCode
+    list
+    loss
+  }
+  errorMetric {
+    totalOrderError
+    totalProductError
+    totalPriceError
+  }
+  pageLoadMetric(path: $pagePath, timePeriod: $loadTimePeriod) {
+    pageLoadAvg
+    pageLoadGlobalAvg
+    percentile
+    vtexTop
+    knotList {
+      date
+      pageLoad
+      pageLoadGlobal
+    }
+  }
+}
