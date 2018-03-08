@@ -33,7 +33,7 @@ ChartTab.propTypes = {
   label: PropTypes.string,
   tabClick: PropTypes.func,
   isLoading: PropTypes.bool,
-  activeTab: PropTypes.string,
+  pagePath: PropTypes.string,
   intl: intlShape,
 }
 

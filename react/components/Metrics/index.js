@@ -82,7 +82,7 @@ class MetricPageload extends React.Component {
             <ChartTabs
               tabClick={this.props.tabClick}
               chartIsLoading={chartIsLoading}
-              activeTab={activeTab}
+              pagePath={activeTab}
               activeDayTab={activeDayTab}
             />
             {isEmpty(chartData) || isNil(chartData) ? (

@@ -5,7 +5,6 @@ import {graphql, compose} from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
 
 import homeDataQuery from '../queries/home.graphql'
-import pageLoadQuery from '../queries/pageLoad.graphql'
 
 import ColumnTitle from '../components/Titles/Column'
 import DataItemsList from '../components/DataItems/DataItemsList'
@@ -165,8 +164,8 @@ class IntegrationsContainer extends React.Component {
         },
       ],
       chartIsLoading: false,
-      activeTab: globalVars.chartTabs[0].type,
-      activeDayTab: 7,
+      pagePath: globalVars.chartTabs[0].type,
+      timePeriod: 7,
     }
   }
 
@@ -307,9 +306,13 @@ class IntegrationsContainer extends React.Component {
 
   getI18nStr = id => this.props.intl.formatMessage({ id })
 
+  handleTabChange = (pagePath) => {
+    this.setState({pagePath})
+  }
+
   render() {
-    const { homeData, pageLoadData: { pageLoadMetric, loading } } = this.props
-    const { activeDayTab, activeTab } = this.state
+    const { homeData } = this.props
+    const { pagePath, timePeriod } = this.state
 
     return (
       <section className="w-100 w-50-l ph3-ns">
@@ -328,14 +331,11 @@ class IntegrationsContainer extends React.Component {
         <NextActions />
 
         <Performance />
-      {
-        !loading &&
         <PageLoadWrapper
-          pageLoadData={pageLoadMetric}
-          activeDayTab={activeDayTab}
-          activeTab={activeTab}
+          pagePath={pagePath}
+          timePeriod={timePeriod}
+          handleChange={this.handleTabChange}
         />
-      }
 
       </section>
     )
@@ -350,10 +350,6 @@ export default compose(
   graphql(homeDataQuery, {
     name: 'homeData',
     options: { ssr: false, variables: {productsTimePeriod: 0} },
-  }),
-  graphql(pageLoadQuery, {
-    name: 'pageLoadData',
-    options: { ssr: false, variables: {pagePath: 'home', loadTimePeriod: 7} },
   }),
   injectIntl
 )(IntegrationsContainer)

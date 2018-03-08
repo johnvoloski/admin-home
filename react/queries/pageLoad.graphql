@@ -1,5 +1,5 @@
-query PageLoadQuery($pagePath: String, $loadTimePeriod: Int) {
-  pageLoadMetric(path: $pagePath, timePeriod: $loadTimePeriod) {
+query PageLoadQuery($pagePath: String, $timePeriod: Int) {
+  pageLoadMetric(path: $pagePath, timePeriod: $timePeriod) {
     pageLoadAvg
     pageLoadGlobalAvg
     percentile

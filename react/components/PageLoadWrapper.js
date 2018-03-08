@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {graphql, compose} from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
 import { isEmpty, isNil } from 'ramda'
 
+import pageLoadQuery from '../queries/pageLoad.graphql'
 import { setToSeconds, valueToFloor, isYesterday, formatValue } from '../utils'
 
 import MetricPageload from './Metrics/'
@@ -25,8 +27,14 @@ class PageLoadWrapper extends Component {
   componentDidMount() {
     this.pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
     this.pageLoadGlobalKey = this.getI18nStr('metric.pageload.legend.pageLoadGlobal')
-    const { pageLoadData, activeTab, activeDayTab} = this.props
-    this.handleMetricPageload(pageLoadData, activeTab, activeDayTab)
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { data: { pageLoadMetric, loading }, pagePath, timePeriod } = nextProps
+    if (!loading) {
+      this.handleMetricPageload(pageLoadMetric, pagePath, timePeriod)
+    }
   }
 
   handleMetricPageload(data, type, days) {
@@ -74,14 +82,15 @@ class PageLoadWrapper extends Component {
       chartIsLoading,
     } = this.state
 
-    const { activeDayTab, activeTab } = this.props
+    const { pagePath, timePeriod, handleChange } = this.props
 
     return (
       <MetricPageload
         chartData={pageload}
         chartIsLoading={chartIsLoading}
-        activeTab={activeTab}
-        activeDayTab={activeDayTab}
+        tabClick={handleChange}
+        activeTab={pagePath}
+        activeDayTab={timePeriod}
         avgGlobalLoad={avgGlobalLoad}
         avgStoreLoad={avgStoreLoad}
         bestPageLoadStore={bestPageLoadStore}
@@ -92,9 +101,14 @@ class PageLoadWrapper extends Component {
 }
 
 PageLoadWrapper.propTypes = {
-  pageLoadData: PropTypes.object.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  activeDayTab: PropTypes.number.isRequired,
+  pagePath: PropTypes.string.isRequired,
+  timePeriod: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
 }
 
-export default injectIntl(PageLoadWrapper)
+export default compose(
+  graphql(pageLoadQuery, {
+    options: ({ pagePath, timePeriod }) => ({ ssr: false, variables: {pagePath, timePeriod} }),
+  }),
+  injectIntl
+)(PageLoadWrapper)
