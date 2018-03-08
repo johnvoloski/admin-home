@@ -6,7 +6,15 @@
   },
   "dependencies": {
     "@vtex/styleguide": "^2.0.0-rc.15",
-    "classnames": "^2.2.5"
+    "axios": "^0.17.0",
+    "classnames": "^2.2.5",
+    "contentful": "^4.1.2",
+    "ramda": "^0.25.0",
+    "moment": "^2.19.1",
+    "react-animated-number": "^0.4.2",
+    "pui-react-tabs": "^8.0.4",
+    "react-tooltip": "^3.3.0",
+    "recharts": "^1.0.0-alpha.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

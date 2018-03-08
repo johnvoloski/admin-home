@@ -1,0 +1,150 @@
+/* --- --- --- */
+/* === Application Settings === */
+/* --- --- --- */
+
+:root {
+  --purple-manage: #8914cc;
+  --pink-vtex: #f71963;
+  --damp-green: #5d9d8b;
+  --clean-blue: #3791e6;
+}
+
+/* --- --- --- */
+/* === General Classes === */
+/* --- --- --- */
+
+.w-15px {
+  width: 15px;
+}
+.h-15px {
+  height: 15px;
+}
+
+.w-30px {
+  width: 30px;
+}
+.h-30px {
+  height: 30px;
+}
+
+.last-child-pr0:last-child {
+  padding-right: 0;
+}
+
+/* --- --- --- */
+/* === Color Additions === */
+/* --- --- --- */
+
+.damp-green {
+  color: var(--damp-green);
+}
+.pink-vtex {
+  color: var(--pink-vtex);
+}
+.purple-manage {
+  color: var(--purple-manage);
+}
+.clean-blue {
+  color: var(--clean-blue);
+}
+.fill-purple-manage {
+  fill: var(--purple-manage);
+}
+
+/* --- --- --- */
+/* === Hover Additions === */
+/* --- --- --- */
+
+.hover-no-underline:hover,
+.hover-no-underline:focus {
+  text-decoration: none;
+}
+
+.hover-bg-purple-manage:hover,
+.hover-bg-purple-manage:focus {
+  background-color: var(--purple-manage);
+}
+
+.hover-purple-manage:hover,
+.hover-purple-manage:focus {
+  color: var(--purple-manage);
+}
+
+.hover-clean-blue:hover,
+.hover-clean-blue:focus {
+  color: var(--clean-blue);
+}
+
+.hover-o-70:hover,
+.hover-o-70:focus {
+  opacity: 0.7;
+}
+
+.hover-dark-tangerine:hover,
+.hover-dark-tangerine:focus {
+  color: var(--dark-tangerine);
+}
+
+.transition-opacity-02:hover,
+.transition-opacity-02:focus {
+  transition: opacity 0.2s;
+}
+
+/* --- --- --- */
+/* === Pivotal UI Vertical Tabs === */
+/* --- --- --- */
+
+.nav-stacked > li + li {
+  margin-top: 0;
+}
+
+.tab-left .nav li a {
+  position: relative;
+  background: none;
+  cursor: pointer;
+  border-radius: 0;
+  outline: 0;
+}
+.tab-left .nav a > div {
+  outline: none;
+}
+.vertical-tabs .nav a:hover svg {
+  fill: #8914cc;
+}
+.tab-left .nav li.active a,
+.tab-left .nav li a:hover,
+.tab-left .nav a:focus {
+  color: #8914cc;
+}
+.tab-left .nav .active a svg,
+.tab-left .nav a:hover svg,
+.tab-left .nav a:focus svg {
+  fill: #8914cc;
+}
+
+/* --- --- --- */
+/* === Integrations' tooltips === */
+/* --- --- --- */
+
+.tooltip-item {
+  margin: 0;
+}
+.tooltip-container.tooltip-home.__react_component_tooltip {
+  pointer-events: auto;
+}
+.tooltip-container:hover {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.tooltip-item {
+  background-color: #222;
+  padding: 4px 20px;
+}
+
+.tooltip-item:first-child {
+  padding-top: 5px;
+}
+.tooltip-item:last-child {
+  padding-bottom: 5px;
+}

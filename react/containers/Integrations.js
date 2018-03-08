@@ -1,0 +1,416 @@
+// const cookie = require('cookie-dough')()
+
+import React from 'react'
+
+import { intlShape, injectIntl } from 'react-intl'
+
+import ColumnTitle from '../components/Titles/Column'
+import DataItemsList from '../components/DataItems/DataItemsList'
+import MetricPageload from '../components/Metrics/'
+import NextActions from './NextActions'
+import Performance from './Performance'
+
+import { globalVars } from '../constants'
+import * as endpoints from '../utils/endpoints'
+import { setToSeconds, valueToFloor, isYesterday } from '../utils'
+
+import axios from 'axios'
+import moment from 'moment'
+import { isNil } from 'ramda'
+
+// const url = window.location.host
+const baseUrl = endpoints.smartlinkBaseUrl
+let account = globalVars.anDefault
+
+// if (url.includes('localhost')) {
+//   account = globalVars.anDefault
+// } else {
+//   account = url
+//     .split('.')[0]
+//     .split('--')
+//     .pop()
+// }
+
+// let clientAutCookie = globalVars.tempCookie
+// cookie.get('VtexIdclientAutCookie')
+// if (!clientAutCookie) {
+//   clientAutCookie = globalVars.cookie
+// }
+
+let pageLoadKey = ''
+let pageLoadGlobalKey = ''
+
+class IntegrationsContainer extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      withBridge: false,
+      bridgeFetched: false,
+      integrations: [
+        {
+          title: 'integrations.bridge.title',
+          type: 'bridge',
+          items: [
+            {
+              src: 'home/metrics/productbridge/error',
+              label: 'integrations.bridge.items.0.0.label',
+              responseCountLocation: 'totalProductError',
+              link:
+                '.vtexcommercestable.com.br/admin/bridge/#/marketplace/product?page=1&per_page=15&status=erro',
+              value: '0',
+            },
+            {
+              src: 'home/metrics/pricebridge/error',
+              label: 'integrations.bridge.items.0.1.label',
+              responseCountLocation: 'totalPriceError',
+              link:
+                '.vtexcommercestable.com.br/admin/bridge/#/marketplace/price?page=1&per_page=15&status=erro',
+              value: '0',
+            },
+            {
+              src: 'home/metrics/orderbridge/error',
+              label: 'integrations.bridge.items.0.2.label',
+              responseCountLocation: 'totalOrderError',
+              link:
+                '.vtexcommercestable.com.br/admin/bridge/#/marketplace/order?page=1&per_page=15&status=erro',
+              value: '0',
+            },
+          ],
+        },
+        {
+          title: 'integrations.payments.title',
+          items: [
+            {
+              src: 'home/metrics/pendingorders',
+              responseCountLocation: 'paging.total',
+              label: 'integrations.bridge.items.1.0.label',
+              link:
+                '.vtexcommercestable.com.br/admin/checkout/#/orders?orderBy=creationDate,desc&page=1&f_status=payment-pending',
+              value: '0',
+            },
+            {
+              src: 'home/metrics/pendingorders/boletoexp',
+              responseCountLocation: 'count',
+              tooltipArrayLocation: 'list',
+              tooltipLink:
+                '.vtexcommercestable.com.br/admin/checkout/#/orders?orderBy=creationDate,desc&page=1',
+              label: 'integrations.bridge.items.1.1.label',
+              link:
+                '.vtexcommercestable.com.br/admin/checkout/#/orders?orderBy=creationDate,desc&page=1&f_paymentNames=Boleto%20Banc%C3%A1rio&f_status=payment-pending',
+              value: '0',
+            },
+          ],
+        },
+        {
+          title: 'integrations.catalog.title',
+          items: [
+            {
+              src: 'home/metrics/inactiveskulist/withstock',
+              label: 'integrations.bridge.items.2.1.label',
+              cta: 'integrations.bridge.items.2.1.cta',
+              value: '0',
+            },
+            {
+              src: 'home/metrics/productmostvisitednostock',
+              tabs: {
+                params: {
+                  url: `${baseUrl}home/metrics/productmostvisitednostock`,
+                  responseCountLocation: 'totalProductCount',
+                  account,
+                  // clientAutCookie,
+                },
+                items: [
+                  {
+                    urlParam: 0,
+                    label: 'integrations.productmostvisitednostock.0',
+                    type: 'today',
+                  },
+                  {
+                    urlParam: 1,
+                    label: 'integrations.productmostvisitednostock.1',
+                    type: 'yesterday',
+                  },
+                  {
+                    urlParam: 7,
+                    label: 'integrations.productmostvisitednostock.7',
+                    type: 'last7days',
+                  },
+                  {
+                    urlParam: 14,
+                    label: 'integrations.productmostvisitednostock.2',
+                    type: 'last2weeks',
+                  },
+                  {
+                    urlParam: 90,
+                    label: 'integrations.productmostvisitednostock.3',
+                    type: 'last3months',
+                  },
+                ],
+              },
+              responseCountLocation: 'totalProductCount',
+              tooltipObjectLocation: {
+                root: 'products',
+                propertyLocation: 'id',
+              },
+              tooltipLink:
+                '.vtexcommercestable.com.br/admin/Site/ProdutoForm.aspx?id=',
+              label: 'integrations.bridge.items.2.0.label',
+              link: '.vtexcommercestable.com.br/admin/Site/Produto.aspx',
+              value: '0',
+            },
+          ],
+        },
+      ],
+      pageload: null,
+      bestPageLoadStore: null,
+      avgGlobalLoad: null,
+      avgStoreLoad: null,
+      percentile: null,
+      chartIsLoading: false,
+      activeTab: globalVars.chartTabs[0].type,
+      activeDayTab: 7,
+    }
+  }
+
+  componentDidMount() {
+    // pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
+    // pageLoadGlobalKey = this.getI18nStr('metric.pageload.legend.pageLoadGlobal')
+    // this.fetchBridge()
+    // this.fetchMetricPageload()
+  }
+
+  fetchBridge() {
+    const url = endpoints.integrationsBridgeTest(account)
+
+    axios({
+      url,
+      // headers: {
+      //   VtexIdclientAutCookie: clientAutCookie,
+      // },
+    })
+      .then(response => {
+        const responseToBool = response.data.toLowerCase()
+
+        this.setState(
+          { withBridge: responseToBool, bridgeFetched: true },
+          function() {
+            this.setIntegrations()
+          },
+        )
+      })
+      .catch(error => {
+        console.log('axios error on integrationsBridgeTest', error)
+        this.setIntegrations()
+      })
+  }
+
+  setIntegrations() {
+    if (!this.state.withBridge) {
+      const integrations = this.state.integrations
+      // get rid of bridge's integrations
+      integrations.shift()
+      this.setState({ integrations }, function() {
+        this.fetchIntegrations()
+        return
+      })
+    }
+
+    this.fetchIntegrations()
+  }
+
+  fetchIntegrations() {
+    this.state.integrations.forEach(
+      (integrationGroup, integrationGroupIndex) => {
+        integrationGroup.items.forEach((el, itemIndex) => {
+          let url = baseUrl + el.src
+          if (el.tabs) {
+            url += `/${el.tabs.items[0].urlParam}`
+          }
+          url += `/${account}`
+
+          axios({
+            url,
+            // headers: {
+            //   VtexIdclientAutCookie: clientAutCookie,
+            // },
+          })
+            .then(response => {
+              this.handleResponse(
+                response.data,
+                integrationGroupIndex,
+                itemIndex,
+              )
+            })
+            .catch(error => {
+              console.log('axios fetch error integration ', el.src, error)
+            })
+        })
+      },
+    )
+  }
+
+  handleResponse(response, integrationGroupIndex, itemIndex) {
+    const integrations = this.state.integrations
+    const item = integrations[integrationGroupIndex].items[itemIndex]
+    item.value = 0
+
+    if (item.responseCountLocation) {
+      item.value = item.responseCountLocation
+        .split('.')
+        .reduce((o, i) => o[i], response)
+    } else if (Number.isInteger(response)) {
+      item.value = response.toString()
+    } else if (Array.isArray(response) && response.length > 0) {
+      item.value = response.length
+    } else if (typeof response === 'object' && response.count) {
+      item.value = response.count.toString()
+    }
+
+    item.value = parseInt(item.value)
+
+    if (item.tooltipObjectLocation) {
+      const tooltipItems = []
+      response[item.tooltipObjectLocation.root].forEach(obj => {
+        tooltipItems.push(obj[item.tooltipObjectLocation.propertyLocation])
+      })
+      item.tooltip = tooltipItems
+    }
+
+    if (item.tooltipArrayLocation) {
+      item.tooltip = response[item.tooltipArrayLocation]
+    }
+
+    item.tooltipLink =
+      item.tooltipLink && 'https://' + account + item.tooltipLink
+
+    item.loss = response.loss ? response.loss : 0
+    item.currencyCode = response.currencyCode ? response.currencyCode : ''
+
+    let extraparams = ''
+    if (
+      item.src === 'home/metrics/pendingorders/boletoexp' &&
+      response.dateFrom &&
+      response.dateTo
+    ) {
+      extraparams = '&f_creationDate=creationDate:%5B'
+      extraparams += response.dateFrom
+      extraparams += '%20TO%20'
+      extraparams += response.dateTo
+      extraparams += '%5D'
+    }
+    if (item.src === 'home/metrics/pendingorders/boletoexp') {
+      item.tooltipLink += `${extraparams}&q=`
+    }
+
+    item.link = !isNil(item.link)
+      ? 'https://' + account + item.link + extraparams
+      : null
+
+    this.setState({ integrations })
+  }
+
+  fetchMetricPageload = (
+    type = this.state.activeTab,
+    days = this.state.activeDayTab,
+  ) => {
+    this.setState({ chartIsLoading: true })
+
+    const url = endpoints.pageload(account, type, days)
+
+    axios({
+      url,
+      // headers: {
+      //   VtexIdclientAutCookie: clientAutCookie,
+      // },
+    })
+      .then(response => {
+        this.handleMetricPageload(response.data, type, days)
+      })
+      .catch(() => {
+        this.setState({ chartIsLoading: false, pageload: null })
+      })
+  }
+
+  handleMetricPageload(data, type, days) {
+    const formattedData = []
+
+    data.knotList.forEach(item => {
+      const formatedItem = {
+        date: item.date,
+        [pageLoadKey]: valueToFloor(item.pageLoad),
+        [pageLoadGlobalKey]: valueToFloor(item.pageLoadGlobal),
+      }
+
+      if (
+        !Number.isNaN(formatedItem.Loja) &&
+        !Number.isNaN(formatedItem.Global) &&
+        (days !== 0 || (days === 0 && !isYesterday(moment(formatedItem.date))))
+      ) {
+        formattedData.push(formatedItem)
+      }
+    })
+
+    const avgGlobalLoad = this.formatValue(data.pageLoadGlobalAvg)
+    const avgStoreLoad = this.formatValue(data.pageLoadAvg)
+    const bestPageLoadStore = this.formatValue(data.vtexTop)
+    const percentile = data.percentile
+
+    this.setState({
+      pageload: formattedData,
+      avgGlobalLoad,
+      avgStoreLoad,
+      bestPageLoadStore,
+      percentile,
+      chartIsLoading: false,
+      activeTab: type,
+      activeDayTab: days,
+    })
+  }
+
+  formatValue(value) {
+    return isNaN(value) || value === 0 ? null : setToSeconds(value)
+  }
+
+  getI18nStr = id => this.props.intl.formatMessage({ id })
+
+  render() {
+    return (
+      <section className="w-100 w-50-l ph3-ns">
+        <ColumnTitle title="integrations.title" />
+
+        {/* {this.state.bridgeFetched &&
+          this.state.integrations.map((integration, listIndex) => (
+            <DataItemsList
+              listIndex={listIndex}
+              key={integration.title}
+              title={integration.title}
+              items={integration.items}
+            />
+          ))} */}
+
+        <NextActions />
+
+        <Performance />
+
+        {/* <MetricPageload
+          chartData={this.state.pageload}
+          tabClick={this.fetchMetricPageload}
+          chartIsLoading={this.state.chartIsLoading}
+          activeTab={this.state.activeTab}
+          activeDayTab={this.state.activeDayTab}
+          avgGlobalLoad={this.state.avgGlobalLoad}
+          avgStoreLoad={this.state.avgStoreLoad}
+          bestPageLoadStore={this.state.bestPageLoadStore}
+          percentile={this.state.percentile}
+        /> */}
+      </section>
+    )
+  }
+}
+
+IntegrationsContainer.propTypes = {
+  intl: intlShape,
+}
+
+export default injectIntl(IntegrationsContainer)

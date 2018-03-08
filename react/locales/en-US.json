@@ -1,0 +1,63 @@
+{
+  "integrations.title": "Data",
+  "integrations.actions.title": "Next Actions",
+  "integrations.actions.subTitle": "Suggested actions to improve your revenue",
+  "integrations.bridge.title": "Marketplace Integrations",
+  "integrations.bridge.items.0.0.label": "Product errors",
+  "integrations.bridge.items.0.1.label": "Price errors",
+  "integrations.bridge.items.0.2.label": "Orders errors",
+  "integrations.bridge.items.1.0.label": "Pending orders",
+  "integrations.bridge.items.1.1.label":
+    "Orders w/ Expired Payment Method holding Inventory",
+  "integrations.bridge.items.1.1.current-opportunity":
+    "Current opportunity: {value}",
+  "integrations.bridge.items.2.0.label":
+    "Products without Stock (in the 100 most viewed)",
+  "integrations.bridge.items.2.1.label": "Inactive Products with Stock",
+  "integrations.bridge.items.2.1.cta": "Activate if possible",
+  "integrations.payments.title": "Payments",
+  "integrations.catalog.title": "Catalog",
+  "integrations.tooltip.more": "More {value} items",
+  "integrations.productmostvisitednostock.0": "Today",
+  "integrations.productmostvisitednostock.1": "Yesterday",
+  "integrations.productmostvisitednostock.7": "7 days",
+  "integrations.productmostvisitednostock.2": "2 weeks",
+  "integrations.productmostvisitednostock.3": "3 months",
+
+  "feed.title": "Feed",
+  "feed.subTitle": "Tips and documentation to take your store farther",
+  "feed.help.title": "Help Center",
+  "feed.help.tabs.0.title": "Products & SKU",
+  "feed.help.tabs.1.title": "Orders",
+  "feed.help.tabs.2.title": "Payments",
+  "feed.help.tabs.3.title": "Marketplace",
+  "feed.help.tabs.4.title": "Integration",
+  "feed.help.tabs.5.title": "Store appearance",
+  "feed.news.title": "News and events",
+
+  "metric.pageload.title": "Page load metrics",
+  "metric.pageload.description":
+    "This chart compares your store's average loading time vs. the average loading time of all VTEX stores.",
+  "metric.pageload.legend.pageLoadStore": "Store",
+  "metric.pageload.legend.pageLoadGlobal": "Global",
+
+  "metric.renderingTime.best.label": "Top VTEX 🔝",
+  "metric.renderingTime.percentil.label": "Percentile",
+  "metric.renderingTime.vtexstores": "VTEX's stores",
+  "metric.renderingTime.fullstore": "Full store",
+
+  "metric.charttabs.all": "Full store",
+  "metric.charttabs.home": "Home",
+  "metric.charttabs.checkout": "Checkout",
+  "metric.charttabs.productView": "Product",
+  "metric.charttabs.days.today": "Today",
+  "metric.charttabs.days.last24h": "24h",
+  "metric.charttabs.days.last3days": "3 days",
+  "metric.charttabs.days.last7days": "7 days",
+  "metric.charttabs.days.last14days": "14 days",
+  "metric.charttabs.exterallink.text":
+    "Learn how to improve the performance of your store,",
+  "metric.charttabs.exterallink.label": "click here",
+  "metric.chart.emptydata":
+    "Lack of data for these parameters. Try another combination."
+}

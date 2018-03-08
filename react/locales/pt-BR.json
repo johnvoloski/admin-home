@@ -1,0 +1,62 @@
+{
+  "integrations.title": "Dados",
+  "integrations.actions.title": "Próximas Ações",
+  "integrations.actions.subTitle": "Ações sugeridas para melhorar sua receita",
+  "integrations.bridge.title": "Integrações de Marketplace",
+  "integrations.bridge.items.0.0.label": "Erros de Produto",
+  "integrations.bridge.items.0.1.label": "Erros de Preço",
+  "integrations.bridge.items.0.2.label": "Erros de Pedido",
+  "integrations.bridge.items.1.0.label": "Pedidos Pendentes",
+  "integrations.bridge.items.1.1.label": "Boletos Expirados com Reserva Ativa",
+  "integrations.bridge.items.1.1.current-opportunity":
+    "Oportunidade atual: {value}",
+  "integrations.bridge.items.2.0.label":
+    "Produtos sem Estoque (nos 100 mais vistos)",
+  "integrations.bridge.items.2.1.label": "Produtos Inativos com Estoque",
+  "integrations.bridge.items.2.1.cta": "Ativar se possível",
+  "integrations.payments.title": "Pagamentos",
+  "integrations.catalog.title": "Catálogo",
+  "integrations.tooltip.more": "Mais {value} itens",
+  "integrations.productmostvisitednostock.0": "Hoje",
+  "integrations.productmostvisitednostock.1": "Ontem",
+  "integrations.productmostvisitednostock.7": "7 dias",
+  "integrations.productmostvisitednostock.2": "2 semanas",
+  "integrations.productmostvisitednostock.3": "3 meses",
+
+  "feed.title": "Feed",
+  "feed.subTitle": "Dicas e documentação para levar sua loja mais longe",
+  "feed.help.title": "Help Center",
+  "feed.help.tabs.0.title": "Produtos & SKU",
+  "feed.help.tabs.1.title": "Pedidos",
+  "feed.help.tabs.2.title": "Pagamentos",
+  "feed.help.tabs.3.title": "Marketplace",
+  "feed.help.tabs.4.title": "Integração",
+  "feed.help.tabs.5.title": "Aparência da loja",
+  "feed.news.title": "Notícias e Eventos",
+
+  "metric.pageload.title": "Métricas de carregamento",
+  "metric.pageload.description":
+    "Este gráfico compara o tempo médio de carregamento da sua loja vs o tempo médio de carregamento de todas lojas VTEX.",
+  "metric.pageload.legend.pageLoadStore": "Loja",
+  "metric.pageload.legend.pageLoadGlobal": "Global",
+
+  "metric.renderingTime.best.label": "Top VTEX 🔝",
+  "metric.renderingTime.percentil.label": "Percentil",
+  "metric.renderingTime.vtexstores": "Lojas VTEX",
+  "metric.renderingTime.fullstore": "Loja completa",
+
+  "metric.charttabs.all": "Loja completa",
+  "metric.charttabs.home": "Home",
+  "metric.charttabs.checkout": "Checkout",
+  "metric.charttabs.productView": "Produto",
+  "metric.charttabs.days.today": "Hoje",
+  "metric.charttabs.days.last24h": "24h",
+  "metric.charttabs.days.last3days": "3 dias",
+  "metric.charttabs.days.last7days": "7 dias",
+  "metric.charttabs.days.last14days": "14 dias",
+  "metric.charttabs.exterallink.text":
+    "Saiba como melhorar o desempenho da sua loja,",
+  "metric.charttabs.exterallink.label": "clique aqui",
+  "metric.chart.emptydata":
+    "Falta de dados para esses parâmetros. Tente outra combinação."
+}

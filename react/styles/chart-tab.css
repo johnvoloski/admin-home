@@ -1,0 +1,20 @@
+.chart-tab {
+  top: 1px;
+  transition: color 0.2s ease;
+}
+.chart-tab:last-of-type {
+  border-right-width: 1px;
+}
+.chart-tab.active {
+  border-bottom-color: white;
+}
+.chart-tab:hover,
+.chart-day-tab:hover {
+  background-color: #f4f4f4;
+  color: #8914cc;
+}
+.chart-tab.loading,
+.chart-day-tab.loading {
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.4);
+}
