@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import {graphql} from 'react-apollo'
-
-import homeDataQuery from './queries/home.graphql'
 import IntegrationsContainer from './containers/Integrations'
 import FeedContainer from './containers/Feed'
 
@@ -12,8 +9,6 @@ class Admin extends Component {
   }
 
   render() {
-    const { data } = this.props
-
     return (
       <div className="ma4 flex flex-column flex-row-l">
         <IntegrationsContainer />
@@ -23,6 +18,4 @@ class Admin extends Component {
   }
 }
 
-export default graphql(homeDataQuery, {
-  options: { ssr: false, variables: {productsTimePeriod: 0, pagePath: 'home', loadTimePeriod: 1} },
-})(Admin)
+export default Admin

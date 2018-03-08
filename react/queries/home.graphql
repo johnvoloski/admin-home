@@ -1,4 +1,4 @@
-query homeDataQuery($productsTimePeriod: Int, $pagePath: String, $loadTimePeriod: Int) {
+query homeDataQuery($productsTimePeriod: Int) {
   mostVisitedProductsNoStock(timePeriod: $productsTimePeriod) {
     totalProductCount
     products {
@@ -20,16 +20,5 @@ query homeDataQuery($productsTimePeriod: Int, $pagePath: String, $loadTimePeriod
     totalOrderError
     totalProductError
     totalPriceError
-  }
-  pageLoadMetric(path: $pagePath, timePeriod: $loadTimePeriod) {
-    pageLoadAvg
-    pageLoadGlobalAvg
-    percentile
-    vtexTop
-    knotList {
-      date
-      pageLoad
-      pageLoadGlobal
-    }
   }
 }

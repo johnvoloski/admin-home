@@ -32,3 +32,8 @@ export const setToSeconds = value => parseFloat((value / 1000).toFixed(1))
 export const valueToFloor = value => Math.floor(value)
 
 export const isYesterday = date => date.isSame(YESTERDAY, 'd')
+
+
+export const formatValue = (value) => {
+  return isNaN(value) || value === 0 ? null : setToSeconds(value)
+}
