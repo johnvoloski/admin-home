@@ -9,13 +9,13 @@ import profileDataQuery from '../queries/profileData.graphql'
 class Hello extends React.Component {
   render() {
     const { data: { topbarData } } = this.props
-    const name = topbarData ? topbarData.profile.name : ''
+    const [firstName] = topbarData.profile.name.split(' ')
 
     return (
       <section
         className="hello-container"
         style={{
-          marginBottom: '4rem',
+          marginBottom: '3rem',
         }}
       >
         <div className="hello-title mb6">
@@ -41,9 +41,9 @@ class Hello extends React.Component {
             <FormattedMessage id="hello-title" />
           </span>
         </div>
-        <div className="hello-subtitle f2 mid-gray fw1 tracked-tight">
+        <div className="hello-subtitle f3 mid-gray fw1 tracked-tight">
           <FormattedMessage id={`hello-subtitle-${getGreetingTime()}`} />{' '}
-          <span className="hello-username fw5 dark-gray">{name}</span>.
+          <span className="hello-username fw5 dark-gray">{firstName}</span>.
         </div>
       </section>
     )
