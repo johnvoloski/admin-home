@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
+import { graphql, compose } from 'react-apollo'
 
 import Card from '../components/Card'
 import CardTitle from '../components/CardTitle'
 import CardSubTitlte from '../components/CardSubTitlte'
 import CardReadMore from '../components/CardReadMore'
 
-import axios from 'axios'
+import healthcheckQuery from '../queries/healthcheck.graphql'
 
-class PlatformStatus extends React.Component {
+class PlatformStatus extends Component {
   constructor() {
     super()
     this.state = {
@@ -18,32 +19,25 @@ class PlatformStatus extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const url =
-      'https://api.statuspage.io/v1/pages/yd7dkbk92d8z/components.json'
+  componentWillReceiveProps(nextProps) {
+    const { data: {vtexStatus, loading} } = nextProps
+    if (!loading) {
+      this.processData(vtexStatus)
+    }
+  }
 
-    axios({
-      url,
-      headers: {
-        Authorization: 'OAuth  33728ab2-2de0-441c-891e-83f02815ccfb',
-      },
+  processData = (vtexStatus) => {
+    let hasNoErrors = true
+    const modulesWithErrors = []
+    vtexStatus.forEach(component => {
+      if (component.status !== 'operational') {
+        hasNoErrors = false
+        modulesWithErrors.push(component.name)
+      }
     })
-      .then(response => {
-        let hasNoErrors = true
-        const modulesWithErrors = []
-        response.data.forEach(component => {
-          if (component.status !== 'operational') {
-            hasNoErrors = false
-            modulesWithErrors.push(component.name)
-          }
-        })
-        if (!hasNoErrors) {
-          this.setState({ hasNoErrors: false, modulesWithErrors })
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (!hasNoErrors) {
+      this.setState({ hasNoErrors: false, modulesWithErrors })
+    }
   }
 
   render() {
@@ -143,4 +137,7 @@ PlatformStatus.propTypes = {
   lastIncident: PropTypes.string,
 }
 
-export default injectIntl(PlatformStatus)
+export default compose(
+  graphql(healthcheckQuery),
+  injectIntl
+)(PlatformStatus)

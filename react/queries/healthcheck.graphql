@@ -1,0 +1,7 @@
+query healthcheckQuery {
+  vtexStatus {
+		status
+    name
+    updated_at
+  }
+}
