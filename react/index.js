@@ -22,7 +22,7 @@ class Admin extends Component {
         >
           <div className="flex flex-column w-40-l w-100">
             <Hello />
-            <Today />
+            {/* <Today /> */}
             <IntegrationsContainer />
           </div>
           <div className="flex flex-column w-40-l w-100 mt8">
