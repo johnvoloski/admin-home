@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import Card from '../components/Card'
@@ -8,8 +7,6 @@ import CardSubTitlte from '../components/CardSubTitlte'
 import CardReadMore from '../components/CardReadMore'
 import Article from '../components/Articles/Article'
 import Announcement from '../components/Announcement'
-
-import { globalVars } from '../constants'
 
 class FeedContainer extends React.Component {
   render() {
@@ -80,7 +77,7 @@ class FeedContainer extends React.Component {
           {announcements.map((a, i) => (
             <Announcement key={`${a.title}_${i}`} {...a} />
           ))}
-          <CardReadMore link="#" />
+          <CardReadMore link="https://help.vtex.com/pt/announcements" />
         </Card>
 
         <Card>
@@ -89,7 +86,7 @@ class FeedContainer extends React.Component {
             {intl.formatMessage({ id: 'news.subtitle' })}
           </CardSubTitlte>
           {articles.map((a, i) => <Article key={`${a.title}_${i}`} {...a} />)}
-          <CardReadMore link="#" />
+          <CardReadMore link="https://blog.vtex.com/" />
         </Card>
       </section>
     )

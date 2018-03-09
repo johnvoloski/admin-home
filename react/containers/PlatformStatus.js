@@ -130,7 +130,7 @@ class PlatformStatus extends React.Component {
             { value: intl.formatRelative(lastIncident) },
           )}
         </p>
-        <CardReadMore link="#" />
+        <CardReadMore link="http://status.vtex.com/" />
       </Card>
     )
   }

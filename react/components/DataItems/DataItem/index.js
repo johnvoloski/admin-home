@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import AnimatedNumber from 'react-animated-number'
 import ReactTooltip from 'react-tooltip'
@@ -74,10 +74,10 @@ class DataItem extends Component {
       value !== 0 && (
         <div className="f7 f6-l fw5">
           {tabs &&
-            tabs.items.map(tab => (
+            tabs.items.map((tab, i) => (
               <ChartTab
                 label={tab.label}
-                key={tab.urlParam}
+                key={`${tab.urlParam}_${i}`}
                 type={tab.type}
                 tabClick={() => this.props.handleTabClick(tab.value, tab.type)}
                 isLoading={isTabsLoading}

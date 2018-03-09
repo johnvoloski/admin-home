@@ -11,6 +11,7 @@ class CardReadMore extends React.Component {
             color: '#368DF7',
           }}
           className="link"
+          target="_blank"
         >
           See more <span className="chevron-right f3">›</span>
         </a>
