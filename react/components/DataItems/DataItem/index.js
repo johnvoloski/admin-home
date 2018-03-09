@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import AnimatedNumber from 'react-animated-number'
 import ReactTooltip from 'react-tooltip'
@@ -8,50 +8,10 @@ import { injectIntl, intlShape } from 'react-intl'
 import { isNil, find, propEq } from 'ramda'
 import axios from 'axios'
 
-class DataItem extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isTabsLoading: false,
-      activeTab: props.tabs ? props.tabs.items[0].type : null,
-    }
-  }
-
+class DataItem extends Component {
   getI18nStr = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   isNotNan = value => !isNaN(value)
-
-  tabClick = type => {
-    if (this.props.tabs) {
-      this.setState({ isTabsLoading: true })
-      const params = this.props.tabs.params
-
-      const item = find(propEq('type', type))(this.props.tabs.items)
-      const url = `${params.url}/${item.urlParam}/${params.account}`
-
-      axios({
-        url,
-        headers: {
-          VtexIdclientAutCookie: params.clientAutCookie,
-        },
-      })
-        .then(response => {
-          const tooltipItems = []
-          response.data.products.forEach(obj => tooltipItems.push(obj.id))
-
-          this.setState({
-            isTabsLoading: false,
-            updatedValue: response.data[params.responseCountLocation],
-            updatedTooltipItems: tooltipItems,
-            activeTab: item.type,
-          })
-        })
-        .catch(() => {
-          this.setState({ isTabsLoading: false })
-        })
-    }
-  }
 
   render() {
     const {
@@ -62,13 +22,13 @@ class DataItem extends React.Component {
       label,
       currencyCode,
       tabs,
+      isTabsLoading,
+      value,
+      tooltipItems,
+      activeTab,
     } = this.props
 
-    const value = this.state.updatedValue || this.props.value
-    const tooltipItems =
-      this.state.updatedTooltipItems || this.props.tooltipItems
-
-    const cardValue = this.state.isTabsLoading ? (
+    const cardValue = isTabsLoading ? (
       <Loader breakAfter />
     ) : (
       <AnimatedNumber
@@ -119,9 +79,9 @@ class DataItem extends React.Component {
                 label={tab.label}
                 key={tab.urlParam}
                 type={tab.type}
-                tabClick={this.tabClick}
-                isLoading={this.state.isLoading}
-                activePage={this.state.activeTab}
+                tabClick={() => this.props.handleTabClick(tab.value, tab.type)}
+                isLoading={isTabsLoading}
+                activePage={activeTab}
               />
             ))}
           <div className="w-100-m w-50-l w-third-ns pv3 pr3 pr5-ns last-child-pr0">
@@ -218,6 +178,9 @@ DataItem.propTypes = {
   cta: PropTypes.string,
   tabs: PropTypes.object,
   intl: intlShape,
+  handleTabClick: PropTypes.func,
+  isTabsLoading: PropTypes.bool,
+  activeTab: PropTypes.string,
 }
 
 export default injectIntl(DataItem)

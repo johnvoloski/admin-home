@@ -78,12 +78,14 @@ class IntegrationsContainer extends React.Component {
         },
       ],
       pagePath: globalVars.chartTabs[0].type,
-      timePeriod: 7,
+      pageLoadTimePeriod: 7,
+      dataItemTimePeriod: 0,
+      dataItemTab: 'today',
     }
   }
 
-  handleTabChange = (pagePath, timePeriod) => {
-    this.setState({ pagePath, timePeriod })
+  handlePageLoadTabChange = (pagePath, timePeriod) => {
+    this.setState({ pagePath, pageLoadTimePeriod: timePeriod })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -121,9 +123,13 @@ class IntegrationsContainer extends React.Component {
     }
   }
 
+  handleDataItemTabClick = (timePeriod, tab) => {
+    this.setState({dataItemTimePeriod: timePeriod, dataItemTab: tab})
+  }
+
   render() {
     const { homeData, intl } = this.props
-    const { pagePath, timePeriod, integrations } = this.state
+    const { pagePath, pageLoadTimePeriod, dataItemTimePeriod, dataItemTab, integrations } = this.state
 
     return (
       <section className="integrations-container">
@@ -144,8 +150,10 @@ class IntegrationsContainer extends React.Component {
             />
           ))}
           <NoStockProduct
-            timePeriod={timePeriod}
+            timePeriod={dataItemTimePeriod}
             listIndex={1}
+            handleTabClick={this.handleDataItemTabClick}
+            activeTab={dataItemTab}
           />
         </Card>
 
@@ -158,8 +166,8 @@ class IntegrationsContainer extends React.Component {
           </CardSubTitlte>
           <PageLoadWrapper
             pagePath={pagePath}
-            timePeriod={timePeriod}
-            tabClick={this.handleTabChange}
+            timePeriod={pageLoadTimePeriod}
+            tabClick={this.handlePageLoadTabChange}
           />
         </Card>
       </section>
