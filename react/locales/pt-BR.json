@@ -71,5 +71,8 @@
   "status.title": "Status da Plataforma",
   "status.subtitle": "Status dos serviços VTEX.",
   "status.incident.last.link": "Último incidente",
-  "status.incident.last.time": "foi {value}"
+  "status.incident.last.time": "foi {value}",
+  "status.situation.ok": "Tudo está bem.",
+  "status.situation.error": "Algo está errado.",
+  "status.situation.affectedmodules": "Módulos afetados"
 }

@@ -72,5 +72,8 @@
   "status.title": "Platform Status",
   "status.subtitle": "Status of VTEX services.",
   "status.incident.last.link": "Last incident",
-  "status.incident.last.time": "was {value}"
+  "status.incident.last.time": "was {value}",
+  "status.situation.ok": "Everything is fine.",
+  "status.situation.error": "Something is wrong.",
+  "status.situation.affectedmodules": "Affected modules:"
 }
