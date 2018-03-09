@@ -69,7 +69,7 @@ class FeedContainer extends React.Component {
     ]
 
     return (
-      <section className="vtex-seriousblack pv6">
+      <section className="serious-black pv6">
         <Card className="mb8">
           <CardTitle>
             {intl.formatMessage({ id: 'announcements.title' })}

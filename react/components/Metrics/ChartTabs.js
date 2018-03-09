@@ -17,7 +17,7 @@ class ChartTabs extends React.Component {
     const { chartIsLoading, pagePath, tabClick, activeDayTab } = this.props
 
     return (
-      <div className="bb b--black-20 flex justify-between items-baseline flex-wrap flex-nowrap-l flex-column flex-row-l f7 f6-l fw5">
+      <div className="chart-tabs flex justify-between items-baseline flex-wrap flex-nowrap-l flex-column flex-row-l f7 f6-l fw5">
         <div className="order-1 order-1-0">
           {globalVars.chartTabs.map(tab => (
             <ChartTab

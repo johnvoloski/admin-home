@@ -34,7 +34,7 @@ class MetricPageload extends React.Component {
               <RenderTimeItem
                 label={`metric.charttabs.${activeTab}`}
                 value={avgStoreLoad}
-                valueClass="vtex-rebelpink"
+                valueClass="rebel-pink"
                 containerClass="w-33 w-25-l"
                 subvalue="s"
                 chartIsLoading={chartIsLoading}
@@ -44,7 +44,7 @@ class MetricPageload extends React.Component {
               <RenderTimeItem
                 label="metric.renderingTime.vtexstores"
                 value={avgGlobalLoad}
-                valueClass="vtex-youngblue"
+                valueClass="blue"
                 containerClass="w-33 w-25-l"
                 subvalue="s"
                 chartIsLoading={chartIsLoading}
@@ -54,7 +54,7 @@ class MetricPageload extends React.Component {
               <RenderTimeItem
                 label="metric.renderingTime.best.label"
                 value={bestPageLoadStore}
-                valueClass="vtex-youngblue"
+                valueClass="blue"
                 containerClass="w-33 w-25-l"
                 subvalue="s"
                 chartIsLoading={chartIsLoading}
@@ -64,7 +64,7 @@ class MetricPageload extends React.Component {
               <RenderTimeItem
                 label="metric.renderingTime.percentil.label"
                 value={percentile}
-                valueClass="vtex-rebelpink"
+                valueClass="rebel-pink"
                 containerClass="w-33 w-25-l"
                 chartIsLoading={chartIsLoading}
               />

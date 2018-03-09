@@ -24,13 +24,13 @@ const CustomTooltip = ({ payload, label, active, intl }) => {
           {Number.isInteger(parseInt(storeValue)) && (
             <div className="flex justify-between w-100">
               <span>{`${payload[0].name}: `}</span>
-              <span className="vtex-rebelpink">{storeValue}s</span>
+              <span className="rebel-pink">{storeValue}s</span>
             </div>
           )}
           {Number.isInteger(parseInt(globalValue)) && (
             <div className="flex justify-between w-100">
               <span>{`${payload[1].name}: `}</span>
-              <span className="vtex-youngblue">{globalValue}s</span>
+              <span className="blue">{globalValue}s</span>
             </div>
           )}
         </div>

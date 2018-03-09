@@ -8,7 +8,7 @@ class Article extends React.Component {
 
     return (
       <a
-        className="dib flex flex-row space-between w-100 lh-copy link hover-no-underline hover-bg-near-white damp-green hover-dark-green"
+        className="dib flex flex-row space-between w-100 lh-copy link hover-no-underline hover-bg-near-white"
         href={link}
         target="_blank"
       >

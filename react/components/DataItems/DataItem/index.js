@@ -73,7 +73,7 @@ class DataItem extends React.Component {
     ) : (
       <AnimatedNumber
         className={
-          'w-100 fw9 ma0 vtex-seriousblack font-display data-item-value dib f1-l f2-m f3 ' +
+          'w-100 fw9 ma0 serious-black font-display data-item-value dib f1-l f2-m f3 ' +
           (link && ' hover-clean-blue')
         }
         value={value}
@@ -90,7 +90,7 @@ class DataItem extends React.Component {
 
     const cleanCurrencyCode = currencyCode === 'R$' ? 'BRL' : currencyCode
     const cardLoss = loss > 0 && (
-      <span className="f6 db fw4 pink-vtex font-body lh-copy">
+      <span className="f6 db fw4 rebel-pink font-body lh-copy">
         {this.getI18nStr('integrations.bridge.items.1.1.current-opportunity', {
           value: this.props.intl.formatNumber(loss, {
             style: 'currency',

@@ -14,7 +14,7 @@ class DayButton extends React.Component {
         className={
           'chart-day-tab bn mt0 mb0 pt0 pb0 ' +
           (this.props.activeDayTab === this.props.value
-            ? ' active vtex-elitepurple bg-near-white '
+            ? ' active elite-purple bg-near-white '
             : ' bg-white ') +
           (this.props.isLoading && ' loading ')
         }

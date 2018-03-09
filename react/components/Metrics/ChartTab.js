@@ -12,12 +12,16 @@ class ChartTab extends React.Component {
     return (
       <button
         className={
-          'br--top chart-tab pr2 pl2 relative bl br-0 bt bb b--black-20 ' +
+          'chart-tab br--top pr2 pl2 relative bl br-0 bt bb b--black-20 ' +
           (this.props.activeTab === this.props.type
-            ? ' active vtex-elitepurple bg-near-white '
+            ? ' active elite-purple bg-near-white bb--red '
             : ' bb-1 bg-white ') +
           (this.props.isLoading && ' loading ')
         }
+        style={{
+          top: '1px',
+          transition: 'color 0.2s ease',
+        }}
         type="button"
         onClick={this.handleClick}
         disabled={this.props.isLoading}

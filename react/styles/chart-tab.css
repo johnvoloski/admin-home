@@ -1,7 +1,7 @@
-.chart-tab {
+/* .chart-tab {
   top: 1px;
   transition: color 0.2s ease;
-}
+} */
 .chart-tab:last-of-type {
   border-right-width: 1px;
 }
