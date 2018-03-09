@@ -15,7 +15,7 @@ class Admin extends Component {
     return (
       <div className="ma5 mt8 flex flex-column flex-row-l justify-around">
         <div className="flex flex-column w-40-l w-100">
-          <Hello username="Cristiano" />
+          <Hello />
           <IntegrationsContainer />
         </div>
         <div className="flex flex-column w-40-l w-100">

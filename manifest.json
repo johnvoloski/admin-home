@@ -15,6 +15,7 @@
     "postreleasy": "vtex publish --public --verbose"
   },
   "dependencies": {
+    "vtex.admin": "1.x",
     "vtex.admin-graphql": "1.x"
   },
   "builders": {

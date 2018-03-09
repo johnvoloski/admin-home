@@ -1,0 +1,10 @@
+query {
+  topbarData {
+    profile {
+      id
+      name
+      email
+      picture
+    }
+  }
+}
