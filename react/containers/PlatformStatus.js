@@ -26,14 +26,18 @@ class PlatformStatus extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      healthcheckData: {vtexStatus, loading: loadingHealth},
-      incidentsData: {incidents, loading: loadingIncidents},
+      healthcheckData: { vtexStatus, loading: loadingHealth },
+      incidentsData: { incidents, loading: loadingIncidents },
     } = nextProps
+
     if (!loadingHealth) {
       this.processData(vtexStatus)
     }
     if (!loadingIncidents) {
-      this.setState({lastIncident: incidents[0].created_at, incidentLink: incidents[0].shortlink})
+      this.setState({
+        lastIncident: incidents[0].created_at,
+        incidentLink: incidents[0].shortlink,
+      })
     }
   }
 
@@ -65,7 +69,13 @@ class PlatformStatus extends Component {
 
   render() {
     const { intl } = this.props
-    const { modulesWithErrors, hasNoErrors, latestCheck, lastIncident, incidentLink } = this.state
+    const {
+      modulesWithErrors,
+      hasNoErrors,
+      latestCheck,
+      lastIncident,
+      incidentLink,
+    } = this.state
 
     return (
       <Card className="mb6">
@@ -142,10 +152,11 @@ class PlatformStatus extends Component {
           <a href={incidentLink} className="dark-gray">
             {intl.formatMessage({ id: 'status.incident.last.link' })}
           </a>{' '}
-          {lastIncident && intl.formatMessage(
-            { id: 'status.incident.last.time' },
-            { value: intl.formatRelative(lastIncident) },
-          )}
+          {lastIncident &&
+            intl.formatMessage(
+              { id: 'status.incident.last.time' },
+              { value: intl.formatRelative(lastIncident) },
+            )}
         </p>
         <CardReadMore link="http://status.vtex.com/" />
       </Card>
@@ -155,6 +166,7 @@ class PlatformStatus extends Component {
 
 PlatformStatus.propTypes = {
   healthcheckData: PropTypes.any,
+  incidentsData: PropTypes.any,
   intl: intlShape,
   username: PropTypes.string,
 }
