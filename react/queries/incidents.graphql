@@ -1,0 +1,6 @@
+query incidentsQuery {
+  incidents {
+		created_at
+    shortlink
+  }
+}

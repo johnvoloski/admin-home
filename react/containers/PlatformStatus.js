@@ -9,6 +9,7 @@ import CardSubTitlte from '../components/CardSubTitlte'
 import CardReadMore from '../components/CardReadMore'
 
 import healthcheckQuery from '../queries/healthcheck.graphql'
+import incidentsQuery from '../queries/incidents.graphql'
 
 class PlatformStatus extends Component {
   constructor() {
@@ -20,7 +21,7 @@ class PlatformStatus extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data: {vtexStatus, loading} } = nextProps
+    const { healthcheckData: {vtexStatus, loading} } = nextProps
     if (!loading) {
       this.processData(vtexStatus)
     }
@@ -138,6 +139,7 @@ PlatformStatus.propTypes = {
 }
 
 export default compose(
-  graphql(healthcheckQuery),
+  graphql(incidentsQuery, {name: 'incidentsData'}),
+  graphql(healthcheckQuery, {name: 'healthcheckData'}),
   injectIntl
 )(PlatformStatus)
