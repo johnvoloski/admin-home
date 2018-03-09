@@ -25,16 +25,11 @@ class PlatformStatus extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-<<<<<<< Updated upstream
     const {
       healthcheckData: {vtexStatus, loading: loadingHealth},
       incidentsData: {incidents, loading: loadingIncidents},
     } = nextProps
     if (!loadingHealth) {
-=======
-    const { healthcheckData: { vtexStatus, loading } } = nextProps
-    if (!loading) {
->>>>>>> Stashed changes
       this.processData(vtexStatus)
     }
     if (!loadingIncidents) {
