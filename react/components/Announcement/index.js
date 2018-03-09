@@ -13,10 +13,10 @@ class Announcement extends React.Component {
           href={link}
           target="_blank"
         >
-          <div className="w-20 pa2">
+          <div className="w-20 pr4 pb4 pt4">
             <img
               src={image}
-              style={{ maxWidth: '100%', borderRadius: '50%', width: '50px', height: '50px' }}
+              style={{ maxWidth: '100%', width: '100%', height: 'auto' }}
             />
           </div>
           <div className="w-80">

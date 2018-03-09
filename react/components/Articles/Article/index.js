@@ -12,7 +12,9 @@ class Article extends React.Component {
         href={link}
         target="_blank"
       >
-        <header className="w-75">
+        <header
+          className="w-75"
+          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
           <h3 className="mt0 f5 fw4 lh-copy font-display mid-gray">{title}</h3>
         </header>
         <p className="tr w-25 ma0 lh-copy font-body f5 gray">
