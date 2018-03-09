@@ -69,7 +69,7 @@ class PlatformStatus extends Component {
   }
 
   render() {
-    const { intl, lastIncident } = this.props
+    const { intl } = this.props
     const { modulesWithErrors, hasNoErrors, latestCheck, lastIncident, incidentLink } = this.state
 
     return (
