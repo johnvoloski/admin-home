@@ -10,6 +10,7 @@ import CardReadMore from '../components/CardReadMore'
 
 import healthcheckQuery from '../queries/healthcheck.graphql'
 import incidentsQuery from '../queries/incidents.graphql'
+import { max } from 'ramda'
 
 class PlatformStatus extends Component {
   constructor() {
@@ -17,6 +18,7 @@ class PlatformStatus extends Component {
     this.state = {
       hasNoErrors: true,
       modulesWithErrors: [],
+      latestCheck: null,
     }
   }
 
@@ -27,9 +29,12 @@ class PlatformStatus extends Component {
     }
   }
 
-  processData = (vtexStatus) => {
+  processData = vtexStatus => {
     let hasNoErrors = true
     const modulesWithErrors = []
+
+    this.getLatestUpdate(vtexStatus)
+
     vtexStatus.forEach(component => {
       if (component.status !== 'operational') {
         hasNoErrors = false
@@ -41,9 +46,18 @@ class PlatformStatus extends Component {
     }
   }
 
+  getLatestUpdate(vtexStatus) {
+    let latestCheck = vtexStatus[0].updated_at
+
+    vtexStatus.forEach(item => {
+      latestCheck = max(latestCheck, item.updated_at)
+    })
+    this.setState({ latestCheck })
+  }
+
   render() {
-    const { intl, lastCheck, lastIncident } = this.props
-    const { modulesWithErrors, hasNoErrors } = this.state
+    const { intl, lastIncident } = this.props
+    const { modulesWithErrors, hasNoErrors, latestCheck } = this.state
 
     return (
       <Card className="mb6">
@@ -61,7 +75,7 @@ class PlatformStatus extends Component {
                 style={{ position: 'relative', top: '7px' }}
               />
               <span className="gray" style={{ fontSize: '14px' }}>
-                {intl.formatRelative(lastCheck)}
+                {intl.formatRelative(latestCheck)}
               </span>
             </div>
           </div>
@@ -132,6 +146,7 @@ class PlatformStatus extends Component {
 }
 
 PlatformStatus.propTypes = {
+  data: PropTypes.any,
   intl: intlShape,
   username: PropTypes.string,
   lastCheck: PropTypes.string,
