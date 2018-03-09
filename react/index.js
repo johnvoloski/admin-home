@@ -21,7 +21,6 @@ class Admin extends Component {
         <div className="flex flex-column w-40-l w-100">
           <PlatformStatus
             lastCheck="2018-03-08T20:06:10"
-            lastIncident="2018-03-01T20:06:10"
           />
           <FeedContainer />
         </div>

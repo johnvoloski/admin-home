@@ -177,6 +177,7 @@ class IntegrationsContainer extends React.Component {
 
 IntegrationsContainer.propTypes = {
   intl: intlShape,
+  lastCheck: PropTypes.string,
 }
 
 export default compose(

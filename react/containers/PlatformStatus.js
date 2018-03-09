@@ -19,13 +19,21 @@ class PlatformStatus extends Component {
       hasNoErrors: true,
       modulesWithErrors: [],
       latestCheck: null,
+      lastIncident: undefined,
+      incidentLink: '#',
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { healthcheckData: {vtexStatus, loading} } = nextProps
-    if (!loading) {
+    const {
+      healthcheckData: {vtexStatus, loading: loadingHealth},
+      incidentsData: {incidents, loading: loadingIncidents},
+    } = nextProps
+    if (!loadingHealth) {
       this.processData(vtexStatus)
+    }
+    if (!loadingIncidents) {
+      this.setState({lastIncident: incidents[0].created_at, incidentLink: incidents[0].shortlink})
     }
   }
 
@@ -57,7 +65,7 @@ class PlatformStatus extends Component {
 
   render() {
     const { intl, lastIncident } = this.props
-    const { modulesWithErrors, hasNoErrors, latestCheck } = this.state
+    const { modulesWithErrors, hasNoErrors, latestCheck, lastIncident, incidentLink } = this.state
 
     return (
       <Card className="mb6">
@@ -131,10 +139,10 @@ class PlatformStatus extends Component {
         </div>
 
         <p className="status-incident-latest dark-gray">
-          <a href="#" className="dark-gray">
+          <a href={incidentLink} className="dark-gray">
             {intl.formatMessage({ id: 'status.incident.last.link' })}
           </a>{' '}
-          {intl.formatMessage(
+          {lastIncident && intl.formatMessage(
             { id: 'status.incident.last.time' },
             { value: intl.formatRelative(lastIncident) },
           )}
@@ -149,8 +157,6 @@ PlatformStatus.propTypes = {
   data: PropTypes.any,
   intl: intlShape,
   username: PropTypes.string,
-  lastCheck: PropTypes.string,
-  lastIncident: PropTypes.string,
 }
 
 export default compose(
