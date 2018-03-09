@@ -9,15 +9,17 @@ import CardReadMore from '../components/CardReadMore'
 
 class PlatformStatus extends React.Component {
   render() {
-    const { intl, username, lastCheck, lastIncident } = this.props
+    const { intl, lastCheck, lastIncident } = this.props
 
     return (
       <Card className="mb6">
         <CardTitle>
-          <div className="relative">
-            {intl.formatMessage({ id: 'status.title' })}
-            <span
-              className="status-lastevrification absolute"
+          <div className="flex space-between">
+            <div className="w-70">
+              {intl.formatMessage({ id: 'status.title' })}
+            </div>
+            <div
+              className="status-lastevrification w-30 tr"
               style={{ right: 0 }}
             >
               <img
@@ -27,7 +29,7 @@ class PlatformStatus extends React.Component {
               <span className="gray" style={{ fontSize: '14px' }}>
                 {intl.formatRelative(lastCheck)}
               </span>
-            </span>
+            </div>
           </div>
         </CardTitle>
         <CardSubTitlte>
