@@ -13,7 +13,7 @@ class ChartTab extends React.Component {
     return (
       <button
         className={
-          'chart-tab pr2 pl2 relative bn link ' +
+          'chart-tab pr2 pl2 relative pointer bn link ' +
           (activePage === type
             ? ' active elite-purple bg-near-white '
             : ' bg-white ') +
