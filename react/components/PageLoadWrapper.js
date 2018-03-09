@@ -37,6 +37,7 @@ class PageLoadWrapper extends Component {
       pagePath,
       timePeriod,
     } = nextProps
+    this.setState({chartIsLoading: loading})
     if (!loading) {
       this.handleMetricPageload(pageLoadMetric, pagePath, timePeriod)
     }
@@ -87,13 +88,13 @@ class PageLoadWrapper extends Component {
       chartIsLoading,
     } = this.state
 
-    const { pagePath, timePeriod, handleChange } = this.props
+    const { pagePath, timePeriod, tabClick } = this.props
 
     return (
       <MetricPageload
         chartData={pageload}
         chartIsLoading={chartIsLoading}
-        tabClick={handleChange}
+        tabClick={tabClick}
         activeTab={pagePath}
         activeDayTab={timePeriod}
         avgGlobalLoad={avgGlobalLoad}
@@ -108,7 +109,7 @@ class PageLoadWrapper extends Component {
 PageLoadWrapper.propTypes = {
   pagePath: PropTypes.string.isRequired,
   timePeriod: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  tabClick: PropTypes.func.isRequired,
 }
 
 export default compose(

@@ -52,5 +52,3 @@ entrypoints.json
 jsconfig.json
 
 .DS_Store
-
-.eslintrc

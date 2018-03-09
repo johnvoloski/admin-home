@@ -6,28 +6,21 @@ import { intlShape, injectIntl } from 'react-intl'
 import homeDataQuery from '../queries/home.graphql'
 
 import DataItemsList from '../components/DataItems/DataItemsList'
+import NoStockProduct from '../components/DataItems/NoStockProduct'
 import PageLoadWrapper from '../components/PageLoadWrapper'
-import DataItem from '../components/DataItems/DataItem'
 import Performance from './Performance'
 import Card from '../components/Card'
 import CardTitle from '../components/CardTitle'
 import CardSubTitlte from '../components/CardSubTitlte'
 
 import { globalVars } from '../constants'
-import * as endpoints from '../utils/endpoints'
-
-import axios from 'axios'
-import moment from 'moment'
-import { isNil } from 'ramda'
-
-const baseUrl = endpoints.smartlinkBaseUrl
 
 class IntegrationsContainer extends React.Component {
   static contextTypes = {
     account: PropTypes.string,
   }
 
-  constructor(props, context) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -39,7 +32,6 @@ class IntegrationsContainer extends React.Component {
           type: 'bridge',
           items: [
             {
-              src: 'home/metrics/productbridge/error',
               label: 'integrations.bridge.items.0.0.label',
               responseCountLocation: 'totalProductError',
               link:
@@ -47,7 +39,6 @@ class IntegrationsContainer extends React.Component {
               value: 0,
             },
             {
-              src: 'home/metrics/pricebridge/error',
               label: 'integrations.bridge.items.0.1.label',
               responseCountLocation: 'totalPriceError',
               link:
@@ -55,7 +46,6 @@ class IntegrationsContainer extends React.Component {
               value: 0,
             },
             {
-              src: 'home/metrics/orderbridge/error',
               label: 'integrations.bridge.items.0.2.label',
               responseCountLocation: 'totalOrderError',
               link:
@@ -68,7 +58,6 @@ class IntegrationsContainer extends React.Component {
           title: 'integrations.payments.title',
           items: [
             {
-              src: 'home/metrics/pendingorders',
               responseCountLocation: 'paging.total',
               label: 'integrations.bridge.items.1.0.label',
               link:
@@ -76,7 +65,6 @@ class IntegrationsContainer extends React.Component {
               value: 0,
             },
             {
-              src: 'home/metrics/pendingorders/boletoexp',
               responseCountLocation: 'count',
               tooltipArrayLocation: 'list',
               tooltipLink:
@@ -88,73 +76,14 @@ class IntegrationsContainer extends React.Component {
             },
           ],
         },
-        {
-          title: 'integrations.catalog.title',
-          items: [
-            {
-              src: 'home/metrics/inactiveskulist/withstock',
-              label: 'integrations.bridge.items.2.1.label',
-              cta: 'integrations.bridge.items.2.1.cta',
-              value: 0,
-            },
-            {
-              src: 'home/metrics/productmostvisitednostock',
-              tabs: {
-                params: {
-                  url: `${baseUrl}home/metrics/productmostvisitednostock`,
-                  responseCountLocation: 'totalProductCount',
-                  account: context.account,
-                },
-                items: [
-                  {
-                    urlParam: 0,
-                    label: 'integrations.productmostvisitednostock.0',
-                    type: 'today',
-                  },
-                  {
-                    urlParam: 1,
-                    label: 'integrations.productmostvisitednostock.1',
-                    type: 'yesterday',
-                  },
-                  {
-                    urlParam: 7,
-                    label: 'integrations.productmostvisitednostock.7',
-                    type: 'last7days',
-                  },
-                  {
-                    urlParam: 14,
-                    label: 'integrations.productmostvisitednostock.2',
-                    type: 'last2weeks',
-                  },
-                  {
-                    urlParam: 90,
-                    label: 'integrations.productmostvisitednostock.3',
-                    type: 'last3months',
-                  },
-                ],
-              },
-              responseCountLocation: 'totalProductCount',
-              tooltipObjectLocation: {
-                root: 'products',
-                propertyLocation: 'id',
-              },
-              tooltipLink:
-                '.vtexcommercestable.com.br/admin/Site/ProdutoForm.aspx?id=',
-              label: 'integrations.bridge.items.2.0.label',
-              link: '.vtexcommercestable.com.br/admin/Site/Produto.aspx',
-              value: 0,
-            },
-          ],
-        },
       ],
-      chartIsLoading: false,
       pagePath: globalVars.chartTabs[0].type,
       timePeriod: 7,
     }
   }
 
-  handleTabChange = pagePath => {
-    this.setState({ pagePath })
+  handleTabChange = (pagePath, timePeriod) => {
+    this.setState({ pagePath, timePeriod })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -190,14 +119,6 @@ class IntegrationsContainer extends React.Component {
       integrations[1].items[1].value = h.pendingBankSlips.count
       this.setState({ integrations })
     }
-
-    // group 2 Catalog
-    if (h.mostVisitedProductsNoStock.totalProductCount > 0) {
-      const integrations = this.state.integrations
-      integrations[2].items[1].value =
-        h.mostVisitedProductsNoStock.totalProductCount
-      this.setState({ integrations })
-    }
   }
 
   render() {
@@ -222,6 +143,10 @@ class IntegrationsContainer extends React.Component {
               items={integration.items}
             />
           ))}
+          <NoStockProduct
+            timePeriod={timePeriod}
+            listIndex={1}
+          />
         </Card>
 
         <Card>
@@ -234,7 +159,7 @@ class IntegrationsContainer extends React.Component {
           <PageLoadWrapper
             pagePath={pagePath}
             timePeriod={timePeriod}
-            handleChange={this.handleTabChange}
+            tabClick={this.handleTabChange}
           />
         </Card>
       </section>

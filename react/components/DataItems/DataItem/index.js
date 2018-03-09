@@ -121,7 +121,7 @@ class DataItem extends React.Component {
                 type={tab.type}
                 tabClick={this.tabClick}
                 isLoading={this.state.isLoading}
-                pagePath={this.state.activeTab}
+                activePage={this.state.activeTab}
               />
             ))}
           <div className="w-100-m w-50-l w-third-ns pv3 pr3 pr5-ns last-child-pr0">

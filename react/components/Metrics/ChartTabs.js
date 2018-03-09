@@ -9,12 +9,12 @@ import ChartTab from './ChartTab'
 import DayButton from './DayButton'
 
 class ChartTabs extends React.Component {
-  handleDaysClick = days => this.props.tabClick(this.props.pagePath, days)
+  handleDaysClick = days => this.props.tabClick(this.props.activePage, days)
 
   getI18nStr = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   render() {
-    const { chartIsLoading, pagePath, tabClick, activeDayTab } = this.props
+    const { chartIsLoading, activePage, tabClick, activeDayTab } = this.props
 
     return (
       <div className="chart-tabs flex justify-between items-baseline flex-wrap flex-nowrap-l flex-column flex-row-l f7 f6-l fw5">
@@ -26,7 +26,8 @@ class ChartTabs extends React.Component {
               type={tab.type}
               tabClick={tabClick}
               isLoading={chartIsLoading}
-              pagePath={pagePath}
+              activePage={activePage}
+              activeDayTab={activeDayTab}
             />
           ))}
         </div>
@@ -51,7 +52,7 @@ class ChartTabs extends React.Component {
 ChartTabs.propTypes = {
   tabClick: PropTypes.func,
   chartIsLoading: PropTypes.bool,
-  pagePath: PropTypes.string,
+  activePage: PropTypes.string,
   activeDayTab: PropTypes.number,
   intl: intlShape,
 }

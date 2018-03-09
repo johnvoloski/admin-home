@@ -1,10 +1,4 @@
-query homeDataQuery($productsTimePeriod: Int) {
-  mostVisitedProductsNoStock(timePeriod: $productsTimePeriod) {
-    totalProductCount
-    products {
-      id
-    }
-  }
+query homeDataQuery {
   pendingOrders {
     paging {
       total
