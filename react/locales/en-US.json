@@ -75,5 +75,7 @@
   "status.incident.last.time": "was {value}",
   "status.situation.ok": "Everything is fine.",
   "status.situation.error": "Something is wrong.",
-  "status.situation.affectedmodules": "Affected modules:"
+  "status.situation.affectedmodules": "Affected modules:",
+  "today.title": "Your store today",
+  "see.more": "See more"
 }

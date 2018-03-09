@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Hello from './containers/Hello'
 import FeedContainer from './containers/Feed'
+import Today from './containers/Today'
 import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
 
@@ -16,6 +17,7 @@ class Admin extends Component {
       <div className="ma5 mt8 flex flex-column flex-row-l justify-around">
         <div className="flex flex-column w-40-l w-100">
           <Hello />
+          <Today />
           <IntegrationsContainer />
         </div>
         <div className="flex flex-column w-40-l w-100">

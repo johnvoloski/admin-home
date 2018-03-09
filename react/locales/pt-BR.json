@@ -74,5 +74,7 @@
   "status.incident.last.time": "foi {value}",
   "status.situation.ok": "Tudo está bem.",
   "status.situation.error": "Algo está errado.",
-  "status.situation.affectedmodules": "Módulos afetados"
+  "status.situation.affectedmodules": "Módulos afetados",
+  "today.title": "Sua loja hoje",
+  "see.more": "Ver mais"
 }

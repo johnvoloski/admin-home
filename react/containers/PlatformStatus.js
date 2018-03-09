@@ -25,11 +25,16 @@ class PlatformStatus extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+<<<<<<< Updated upstream
     const {
       healthcheckData: {vtexStatus, loading: loadingHealth},
       incidentsData: {incidents, loading: loadingIncidents},
     } = nextProps
     if (!loadingHealth) {
+=======
+    const { healthcheckData: { vtexStatus, loading } } = nextProps
+    if (!loading) {
+>>>>>>> Stashed changes
       this.processData(vtexStatus)
     }
     if (!loadingIncidents) {
@@ -154,13 +159,13 @@ class PlatformStatus extends Component {
 }
 
 PlatformStatus.propTypes = {
-  data: PropTypes.any,
+  healthcheckData: PropTypes.any,
   intl: intlShape,
   username: PropTypes.string,
 }
 
 export default compose(
-  graphql(incidentsQuery, {name: 'incidentsData'}),
-  graphql(healthcheckQuery, {name: 'healthcheckData'}),
-  injectIntl
+  graphql(incidentsQuery, { name: 'incidentsData' }),
+  graphql(healthcheckQuery, { name: 'healthcheckData' }),
+  injectIntl,
 )(PlatformStatus)
