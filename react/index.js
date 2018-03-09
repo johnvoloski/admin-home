@@ -5,6 +5,7 @@ import FeedContainer from './containers/Feed'
 // import Today from './containers/Today'
 import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
+import RedBlock from './containers/RedBlock'
 
 // eslint-disable-next-line
 class Admin extends Component {
@@ -14,18 +15,22 @@ class Admin extends Component {
 
   render() {
     return (
-      <div className="pa5 pt8 flex flex-column flex-row-l justify-around" style={{ backgroundColor: '#fafafa'}}>
-        <div className="flex flex-column w-40-l w-100">
-          <Hello />
-          {/* <Today /> */}
-          <IntegrationsContainer />
+      <div className="pr5 pl5 pt8 pb8" style={{ backgroundColor: '#fafafa' }}>
+        <div
+          className=" relative flex flex-column flex-row-l justify-around"
+          style={{ zIndex: 1 }}
+        >
+          <div className="flex flex-column w-40-l w-100">
+            <Hello />
+            <Today />
+            <IntegrationsContainer />
+          </div>
+          <div className="flex flex-column w-40-l w-100 mt8">
+            <PlatformStatus lastCheck="2018-03-08T20:06:10" />
+            <FeedContainer />
+          </div>
         </div>
-        <div className="flex flex-column w-40-l w-100 mt8">
-          <PlatformStatus
-            lastCheck="2018-03-08T20:06:10"
-          />
-          <FeedContainer />
-        </div>
+        <RedBlock />
       </div>
     )
   }
