@@ -1,18 +1,19 @@
 // const cookie = require('cookie-dough')()
 
 import React from 'react'
-
+import {graphql, compose} from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
+
+import homeDataQuery from '../queries/home.graphql'
 
 import ColumnTitle from '../components/Titles/Column'
 import DataItemsList from '../components/DataItems/DataItemsList'
-import MetricPageload from '../components/Metrics/'
+import PageLoadWrapper from '../components/PageLoadWrapper'
 import NextActions from './NextActions'
 import Performance from './Performance'
 
 import { globalVars } from '../constants'
 import * as endpoints from '../utils/endpoints'
-import { setToSeconds, valueToFloor, isYesterday } from '../utils'
 
 import axios from 'axios'
 import moment from 'moment'
@@ -162,20 +163,13 @@ class IntegrationsContainer extends React.Component {
           ],
         },
       ],
-      pageload: null,
-      bestPageLoadStore: null,
-      avgGlobalLoad: null,
-      avgStoreLoad: null,
-      percentile: null,
       chartIsLoading: false,
-      activeTab: globalVars.chartTabs[0].type,
-      activeDayTab: 7,
+      pagePath: globalVars.chartTabs[0].type,
+      timePeriod: 7,
     }
   }
 
   componentDidMount() {
-    // pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
-    // pageLoadGlobalKey = this.getI18nStr('metric.pageload.legend.pageLoadGlobal')
     // this.fetchBridge()
     // this.fetchMetricPageload()
   }
@@ -310,71 +304,16 @@ class IntegrationsContainer extends React.Component {
     this.setState({ integrations })
   }
 
-  fetchMetricPageload = (
-    type = this.state.activeTab,
-    days = this.state.activeDayTab,
-  ) => {
-    this.setState({ chartIsLoading: true })
-
-    const url = endpoints.pageload(account, type, days)
-
-    axios({
-      url,
-      // headers: {
-      //   VtexIdclientAutCookie: clientAutCookie,
-      // },
-    })
-      .then(response => {
-        this.handleMetricPageload(response.data, type, days)
-      })
-      .catch(() => {
-        this.setState({ chartIsLoading: false, pageload: null })
-      })
-  }
-
-  handleMetricPageload(data, type, days) {
-    const formattedData = []
-
-    data.knotList.forEach(item => {
-      const formatedItem = {
-        date: item.date,
-        [pageLoadKey]: valueToFloor(item.pageLoad),
-        [pageLoadGlobalKey]: valueToFloor(item.pageLoadGlobal),
-      }
-
-      if (
-        !Number.isNaN(formatedItem.Loja) &&
-        !Number.isNaN(formatedItem.Global) &&
-        (days !== 0 || (days === 0 && !isYesterday(moment(formatedItem.date))))
-      ) {
-        formattedData.push(formatedItem)
-      }
-    })
-
-    const avgGlobalLoad = this.formatValue(data.pageLoadGlobalAvg)
-    const avgStoreLoad = this.formatValue(data.pageLoadAvg)
-    const bestPageLoadStore = this.formatValue(data.vtexTop)
-    const percentile = data.percentile
-
-    this.setState({
-      pageload: formattedData,
-      avgGlobalLoad,
-      avgStoreLoad,
-      bestPageLoadStore,
-      percentile,
-      chartIsLoading: false,
-      activeTab: type,
-      activeDayTab: days,
-    })
-  }
-
-  formatValue(value) {
-    return isNaN(value) || value === 0 ? null : setToSeconds(value)
-  }
-
   getI18nStr = id => this.props.intl.formatMessage({ id })
 
+  handleTabChange = (pagePath) => {
+    this.setState({pagePath})
+  }
+
   render() {
+    const { homeData } = this.props
+    const { pagePath, timePeriod } = this.state
+
     return (
       <section className="w-100 w-50-l ph3-ns">
         <ColumnTitle title="integrations.title" />
@@ -392,18 +331,12 @@ class IntegrationsContainer extends React.Component {
         <NextActions />
 
         <Performance />
+        <PageLoadWrapper
+          pagePath={pagePath}
+          timePeriod={timePeriod}
+          handleChange={this.handleTabChange}
+        />
 
-        {/* <MetricPageload
-          chartData={this.state.pageload}
-          tabClick={this.fetchMetricPageload}
-          chartIsLoading={this.state.chartIsLoading}
-          activeTab={this.state.activeTab}
-          activeDayTab={this.state.activeDayTab}
-          avgGlobalLoad={this.state.avgGlobalLoad}
-          avgStoreLoad={this.state.avgStoreLoad}
-          bestPageLoadStore={this.state.bestPageLoadStore}
-          percentile={this.state.percentile}
-        /> */}
       </section>
     )
   }
@@ -413,4 +346,10 @@ IntegrationsContainer.propTypes = {
   intl: intlShape,
 }
 
-export default injectIntl(IntegrationsContainer)
+export default compose(
+  graphql(homeDataQuery, {
+    name: 'homeData',
+    options: { ssr: false, variables: {productsTimePeriod: 0} },
+  }),
+  injectIntl
+)(IntegrationsContainer)

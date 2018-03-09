@@ -1,0 +1,24 @@
+query homeDataQuery($productsTimePeriod: Int) {
+  mostVisitedProductsNoStock(timePeriod: $productsTimePeriod) {
+    totalProductCount
+    products {
+      id
+    }
+  }
+  pendingOrders {
+    paging {
+      total
+    }
+  }
+  pendingBankSlips {
+    count
+    currencyCode
+    list
+    loss
+  }
+  errorMetric {
+    totalOrderError
+    totalProductError
+    totalPriceError
+  }
+}

@@ -1,0 +1,13 @@
+query PageLoadQuery($pagePath: String, $timePeriod: Int) {
+  pageLoadMetric(path: $pagePath, timePeriod: $timePeriod) {
+    pageLoadAvg
+    pageLoadGlobalAvg
+    percentile
+    vtexTop
+    knotList {
+      date
+      pageLoad
+      pageLoadGlobal
+    }
+  }
+}

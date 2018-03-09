@@ -6,7 +6,7 @@ import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
 
 // eslint-disable-next-line
-export default class Admin extends Component {
+class Admin extends Component {
   componentDidMount() {
     window.postMessage({ action: { type: 'STOP_LOADING' } }, '*')
   }
@@ -29,3 +29,5 @@ export default class Admin extends Component {
     )
   }
 }
+
+export default Admin
