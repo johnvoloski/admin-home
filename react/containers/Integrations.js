@@ -1,5 +1,3 @@
-// const cookie = require('cookie-dough')()
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
@@ -7,11 +5,13 @@ import { intlShape, injectIntl } from 'react-intl'
 
 import homeDataQuery from '../queries/home.graphql'
 
-import ColumnTitle from '../components/Titles/Column'
 import DataItemsList from '../components/DataItems/DataItemsList'
 import PageLoadWrapper from '../components/PageLoadWrapper'
 import DataItem from '../components/DataItems/DataItem'
 import Performance from './Performance'
+import Card from '../components/Card'
+import CardTitle from '../components/CardTitle'
+import CardSubTitlte from '../components/CardSubTitlte'
 
 import { globalVars } from '../constants'
 import * as endpoints from '../utils/endpoints'
@@ -20,34 +20,14 @@ import axios from 'axios'
 import moment from 'moment'
 import { isNil } from 'ramda'
 
-// const url = window.location.host
 const baseUrl = endpoints.smartlinkBaseUrl
-let account = globalVars.anDefault
-
-// if (url.includes('localhost')) {
-//   account = globalVars.anDefault
-// } else {
-//   account = url
-//     .split('.')[0]
-//     .split('--')
-//     .pop()
-// }
-
-// let clientAutCookie = globalVars.tempCookie
-// cookie.get('VtexIdclientAutCookie')
-// if (!clientAutCookie) {
-//   clientAutCookie = globalVars.cookie
-// }
-
-let pageLoadKey = ''
-let pageLoadGlobalKey = ''
 
 class IntegrationsContainer extends React.Component {
   static contextTypes = {
     account: PropTypes.string,
   }
 
-  constructor(props) {
+  constructor(props, context) {
     super(props)
 
     this.state = {
@@ -123,8 +103,7 @@ class IntegrationsContainer extends React.Component {
                 params: {
                   url: `${baseUrl}home/metrics/productmostvisitednostock`,
                   responseCountLocation: 'totalProductCount',
-                  account,
-                  // clientAutCookie,
+                  account: context.account,
                 },
                 items: [
                   {
@@ -173,143 +152,6 @@ class IntegrationsContainer extends React.Component {
       timePeriod: 7,
     }
   }
-
-  componentDidMount() {
-    // this.fetchBridge()
-    // this.fetchMetricPageload()
-  }
-
-  fetchBridge() {
-    const url = endpoints.integrationsBridgeTest(account)
-
-    axios({
-      url,
-      // headers: {
-      //   VtexIdclientAutCookie: clientAutCookie,
-      // },
-    })
-      .then(response => {
-        const responseToBool = response.data.toLowerCase()
-
-        this.setState(
-          { withBridge: responseToBool, bridgeFetched: true },
-          function() {
-            this.setIntegrations()
-          },
-        )
-      })
-      .catch(error => {
-        console.log('axios error on integrationsBridgeTest', error)
-        this.setIntegrations()
-      })
-  }
-
-  setIntegrations() {
-    if (!this.state.withBridge) {
-      const integrations = this.state.integrations
-      // get rid of bridge's integrations
-      integrations.shift()
-      this.setState({ integrations }, function() {
-        this.fetchIntegrations()
-        return
-      })
-    }
-
-    this.fetchIntegrations()
-  }
-
-  fetchIntegrations() {
-    this.state.integrations.forEach(
-      (integrationGroup, integrationGroupIndex) => {
-        integrationGroup.items.forEach((el, itemIndex) => {
-          let url = baseUrl + el.src
-          if (el.tabs) {
-            url += `/${el.tabs.items[0].urlParam}`
-          }
-          url += `/${account}`
-
-          axios({
-            url,
-            // headers: {
-            //   VtexIdclientAutCookie: clientAutCookie,
-            // },
-          })
-            .then(response => {
-              this.handleResponse(
-                response.data,
-                integrationGroupIndex,
-                itemIndex,
-              )
-            })
-            .catch(error => {
-              console.log('axios fetch error integration ', el.src, error)
-            })
-        })
-      },
-    )
-  }
-
-  handleResponse(response, integrationGroupIndex, itemIndex) {
-    const integrations = this.state.integrations
-    const item = integrations[integrationGroupIndex].items[itemIndex]
-    item.value = 0
-
-    if (item.responseCountLocation) {
-      item.value = item.responseCountLocation
-        .split('.')
-        .reduce((o, i) => o[i], response)
-    } else if (Number.isInteger(response)) {
-      item.value = response.toString()
-    } else if (Array.isArray(response) && response.length > 0) {
-      item.value = response.length
-    } else if (typeof response === 'object' && response.count) {
-      item.value = response.count.toString()
-    }
-
-    item.value = parseInt(item.value)
-
-    if (item.tooltipObjectLocation) {
-      const tooltipItems = []
-      response[item.tooltipObjectLocation.root].forEach(obj => {
-        tooltipItems.push(obj[item.tooltipObjectLocation.propertyLocation])
-      })
-      item.tooltip = tooltipItems
-    }
-
-    if (item.tooltipArrayLocation) {
-      item.tooltip = response[item.tooltipArrayLocation]
-    }
-
-    item.tooltipLink =
-      item.tooltipLink && 'https://' + account + item.tooltipLink
-
-    item.loss = response.loss ? response.loss : 0
-    item.currencyCode = response.currencyCode ? response.currencyCode : ''
-
-    let extraparams = ''
-    if (
-      item.src === 'home/metrics/pendingorders/boletoexp' &&
-      response.dateFrom &&
-      response.dateTo
-    ) {
-      extraparams = '&f_creationDate=creationDate:%5B'
-      extraparams += response.dateFrom
-      extraparams += '%20TO%20'
-      extraparams += response.dateTo
-      extraparams += '%5D'
-    }
-    if (item.src === 'home/metrics/pendingorders/boletoexp') {
-      item.tooltipLink += `${extraparams}&q=`
-    }
-
-    item.link = !isNil(item.link)
-      ? 'https://' + account + item.link + extraparams
-      : null
-
-    this.setState({ integrations })
-  }
-
-  getI18nStr = id => this.props.intl.formatMessage({ id })
 
   handleTabChange = pagePath => {
     this.setState({ pagePath })
@@ -363,23 +205,38 @@ class IntegrationsContainer extends React.Component {
     const { pagePath, timePeriod, integrations } = this.state
 
     return (
-      <section className="">
-        <ColumnTitle title="integrations.title" />
+      <section className="integrations-container">
+        <Card className="mb8">
+          <CardTitle>
+            {intl.formatMessage({ id: 'integrations.actions.title' })}
+          </CardTitle>
+          <CardSubTitlte>
+            {intl.formatMessage({ id: 'integrations.actions.subTitle' })}
+          </CardSubTitlte>
 
-        {integrations.map((integration, listIndex) => (
-          <DataItemsList
-            key={integration.title}
-            listIndex={listIndex}
-            title={integration.title}
-            items={integration.items}
+          {integrations.map((integration, listIndex) => (
+            <DataItemsList
+              key={integration.title}
+              listIndex={listIndex}
+              title={integration.title}
+              items={integration.items}
+            />
+          ))}
+        </Card>
+
+        <Card>
+          <CardTitle>
+            {intl.formatMessage({ id: 'metric.pageload.title' })}
+          </CardTitle>
+          <CardSubTitlte>
+            {intl.formatMessage({ id: 'metric.pageload.description' })}
+          </CardSubTitlte>
+          <PageLoadWrapper
+            pagePath={pagePath}
+            timePeriod={timePeriod}
+            handleChange={this.handleTabChange}
           />
-        ))}
-
-        <PageLoadWrapper
-          pagePath={pagePath}
-          timePeriod={timePeriod}
-          handleChange={this.handleTabChange}
-        />
+        </Card>
       </section>
     )
   }

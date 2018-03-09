@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {graphql, compose} from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
 import { isEmpty, isNil } from 'ramda'
 
@@ -26,12 +26,17 @@ class PageLoadWrapper extends Component {
 
   componentDidMount() {
     this.pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
-    this.pageLoadGlobalKey = this.getI18nStr('metric.pageload.legend.pageLoadGlobal')
-
+    this.pageLoadGlobalKey = this.getI18nStr(
+      'metric.pageload.legend.pageLoadGlobal',
+    )
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data: { pageLoadMetric, loading }, pagePath, timePeriod } = nextProps
+    const {
+      data: { pageLoadMetric, loading },
+      pagePath,
+      timePeriod,
+    } = nextProps
     if (!loading) {
       this.handleMetricPageload(pageLoadMetric, pagePath, timePeriod)
     }
@@ -108,7 +113,10 @@ PageLoadWrapper.propTypes = {
 
 export default compose(
   graphql(pageLoadQuery, {
-    options: ({ pagePath, timePeriod }) => ({ ssr: false, variables: {pagePath, timePeriod} }),
+    options: ({ pagePath, timePeriod }) => ({
+      ssr: false,
+      variables: { pagePath, timePeriod },
+    }),
   }),
-  injectIntl
+  injectIntl,
 )(PageLoadWrapper)
