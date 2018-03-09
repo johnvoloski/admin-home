@@ -24,6 +24,7 @@ class MetricPageload extends React.Component {
       activeTab,
       activeDayTab,
       chartIsLoading,
+      tabClick,
     } = this.props
 
     return (
@@ -73,9 +74,9 @@ class MetricPageload extends React.Component {
         </div>
         <div>
           <ChartTabs
-            tabClick={this.props.tabClick}
+            tabClick={tabClick}
             chartIsLoading={chartIsLoading}
-            pagePath={activeTab}
+            activePage={activeTab}
             activeDayTab={activeDayTab}
           />
           {isEmpty(chartData) || isNil(chartData) ? (

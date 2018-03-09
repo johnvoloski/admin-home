@@ -153,8 +153,8 @@ class IntegrationsContainer extends React.Component {
     }
   }
 
-  handleTabChange = pagePath => {
-    this.setState({ pagePath })
+  handleTabChange = (pagePath, timePeriod) => {
+    this.setState({ pagePath, timePeriod })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -192,12 +192,12 @@ class IntegrationsContainer extends React.Component {
     }
 
     // group 2 Catalog
-    if (h.mostVisitedProductsNoStock.totalProductCount > 0) {
-      const integrations = this.state.integrations
-      integrations[2].items[1].value =
-        h.mostVisitedProductsNoStock.totalProductCount
-      this.setState({ integrations })
-    }
+    // if (h.mostVisitedProductsNoStock.totalProductCount > 0) {
+    //   const integrations = this.state.integrations
+    //   integrations[2].items[1].value =
+    //     h.mostVisitedProductsNoStock.totalProductCount
+    //   this.setState({ integrations })
+    // }
   }
 
   render() {
@@ -234,7 +234,7 @@ class IntegrationsContainer extends React.Component {
           <PageLoadWrapper
             pagePath={pagePath}
             timePeriod={timePeriod}
-            handleChange={this.handleTabChange}
+            tabClick={this.handleTabChange}
           />
         </Card>
       </section>

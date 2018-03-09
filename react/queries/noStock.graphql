@@ -1,0 +1,8 @@
+query mostVisitedProductsNoStock($timePeriod: Int) {
+  mostVisitedProductsNoStock(timePeriod: $timePeriod) {
+    totalProductCount
+    products {
+      id
+    }
+  }
+}

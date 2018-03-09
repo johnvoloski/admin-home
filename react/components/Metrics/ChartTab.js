@@ -4,25 +4,26 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 class ChartTab extends React.Component {
-  handleClick = () => this.props.tabClick(this.props.type)
+  handleClick = () => this.props.tabClick(this.props.type, this.props.activeDayTab)
 
   getI18nStr = (id, values) => this.props.intl.formatMessage({ id }, values)
 
   render() {
+    const { activePage, type, label, isLoading } = this.props
     return (
       <button
         className={
           'br--top chart-tab pr2 pl2 relative bl br-0 bt bb b--black-20 ' +
-          (this.props.activeTab === this.props.type
+          (activePage === type
             ? ' active vtex-elitepurple bg-near-white '
             : ' bb-1 bg-white ') +
-          (this.props.isLoading && ' loading ')
+          (isLoading && ' loading ')
         }
         type="button"
         onClick={this.handleClick}
-        disabled={this.props.isLoading}
+        disabled={isLoading}
       >
-        {this.getI18nStr(this.props.label)}
+        {this.getI18nStr(label)}
       </button>
     )
   }
@@ -33,7 +34,8 @@ ChartTab.propTypes = {
   label: PropTypes.string,
   tabClick: PropTypes.func,
   isLoading: PropTypes.bool,
-  pagePath: PropTypes.string,
+  activePage: PropTypes.string,
+  activeDayTab: PropTypes.number,
   intl: intlShape,
 }
 
