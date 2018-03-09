@@ -54,13 +54,6 @@ class NoStockProduct extends Component {
     }
   }
 
-  componentDidMount() {
-    this.pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
-    this.pageLoadGlobalKey = this.getI18nStr(
-      'metric.pageload.legend.pageLoadGlobal',
-    )
-  }
-
   componentWillReceiveProps(nextProps) {
     const { data: { mostVisitedProductsNoStock, loading } } = nextProps
     // group 2 Catalog
