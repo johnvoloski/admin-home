@@ -60,5 +60,16 @@
     "Aprende cómo mejorar el rendimiento de tu tienda,",
   "metric.charttabs.exterallink.label": "clique aqui",
   "metric.chart.emptydata":
-    "Falta de datos para estos parámetros. Intente otra combinación."
+    "Falta de datos para estos parámetros. Intente otra combinación.",
+
+  "announcements.title": "Anuncios",
+  "announcements.subtitle": "Últimas noticias sobre la plataforma VTEX",
+  "news.title": "Blog",
+  "news.subtitle": "Últimas noticias sobre el mundo del comercio electrónico",
+  "hello-title": "Home",
+  "hello-subtitle": "Buenos días,",
+  "status.title": "Estado de plataforma",
+  "status.subtitle": "Estado de los servicios VTEX.",
+  "status.incident.last.link": "Último incidente",
+  "status.incident.last.time": "estaba {value}"
 }

@@ -58,5 +58,16 @@
     "Saiba como melhorar o desempenho da sua loja,",
   "metric.charttabs.exterallink.label": "clique aqui",
   "metric.chart.emptydata":
-    "Falta de dados para esses parâmetros. Tente outra combinação."
+    "Falta de dados para esses parâmetros. Tente outra combinação.",
+
+  "announcements.title": "Anúncios",
+  "announcements.subtitle": "Últimas notícias sobre a plataforma VTEX",
+  "news.title": "Blog",
+  "news.subtitle": "Últimas notícias sobre o mundo do comércio eletrônico",
+  "hello-title": "Home",
+  "hello-subtitle": "Bom dia,",
+  "status.title": "Status da Plataforma",
+  "status.subtitle": "Status dos serviços VTEX.",
+  "status.incident.last.link": "Último incidente",
+  "status.incident.last.time": "foi {value}"
 }

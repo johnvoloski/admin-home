@@ -1,74 +1,103 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { injectIntl, intlShape } from 'react-intl'
 
-import ColumnTitle from '../components/Titles/Column'
-// import ArticlesContainer from './Articles'
+import Card from '../components/Card'
+import CardTitle from '../components/CardTitle'
+import CardSubTitlte from '../components/CardSubTitlte'
+import CardReadMore from '../components/CardReadMore'
+import Article from '../components/Articles/Article'
 import Announcement from '../components/Announcement'
 
-// import EventListener from 'react-event-listener'
-
-import {
-  isParentWindowTopbarLocale,
-  isParentWindowRuntimeLocale,
-} from '../utils'
 import { globalVars } from '../constants'
 
 class FeedContainer extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      displayNews: false,
-    }
-  }
-
-  componentDidMount() {
-    // this.handledisplayNews()
-  }
-
-  // handledisplayNews = () => {
-  //   if (
-  //     isParentWindowTopbarLocale() &&
-  //     parent.window.vtex.topbar.service.Locale.getLocale() === 'pt-BR'
-  //   ) {
-  //     this.setState({ displayNews: true })
-  //   } else if (
-  //     isParentWindowRuntimeLocale() &&
-  //     parent.window.__RUNTIME__.culture.locale === 'pt-BR'
-  //   ) {
-  //     this.setState({ displayNews: true })
-  //   } else {
-  //     this.setState({ displayNews: false })
-  //   }
-  // }
-
   render() {
+    const { intl } = this.props
+
     const announcements = [
-      { title: 'title 1', content: 'kjhvf sjdfh sd' },
-      { title: 'title 2', content: 'adf sdfjhfdsv jfvghjs dvf' },
+      {
+        title: 'Requisições com paginação na API de busca vão mudar',
+        date: '03/07/2018',
+        link: '#',
+        image:
+          'https://image.ibb.co/bUWgQ7/Screen_Shot_2018_03_08_at_19_09_03.png',
+        content:
+          'A partir de 31 de março, as requisições com paginação na API de busca não vão mais poder ser feitas com o header resources do request.',
+      },
+      {
+        title: 'Novo Admin já está sendo liberado para todas as lojas',
+        date: '03/01/2018',
+        link: '#',
+        image: 'https://image.ibb.co/nDG4dS/icon.png',
+        content:
+          'Depois de passar um tempo em beta, podendo ser testado por uma parte dos nossos clientes, o novo Admin foi melhorado e vai começar a ser liberado.',
+      },
+    ]
+
+    const articles = [
+      {
+        title:
+          'Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!',
+        date: '02/23/2018',
+        content:
+          'Nos dias 3 e 4 de Outubro participe do Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!  Para os clientes e…',
+        link: '#',
+      },
+      {
+        title: 'Evento Black Friday',
+        date: '02/06/2018',
+        content:
+          'A VTEX vai promover um evento com o objetivo de capacitar nossas agências e clientes para a maior data do varejo brasileiro: BLACK FRIDAY! O evento…',
+        link: '#',
+      },
+      {
+        title:
+          'Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!',
+        date: '01/29/2018',
+        content:
+          'Nos dias 3 e 4 de Outubro participe do Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!  Para os clientes e…',
+        link: '#',
+      },
+      {
+        title: 'Evento Black Friday',
+        date: '12/29/2017',
+        content:
+          'A VTEX vai promover um evento com o objetivo de capacitar nossas agências e clientes para a maior data do varejo brasileiro: BLACK FRIDAY! O evento…',
+        link: '#',
+      },
     ]
 
     return (
-      <section className="w-100 w-50-l ph3-ns vtex-seriousblack">
-        <ColumnTitle title="feed.title" />
+      <section className="vtex-seriousblack pv6">
+        <Card className="mb6">
+          <CardTitle>
+            {intl.formatMessage({ id: 'announcements.title' })}
+          </CardTitle>
+          <CardSubTitlte>
+            {intl.formatMessage({ id: 'announcements.subtitle' })}
+          </CardSubTitlte>
+          {announcements.map((a, i) => (
+            <Announcement key={`${a.title}_${i}`} {...a} />
+          ))}
+          <CardReadMore link="#" />
+        </Card>
 
-        <h2>Announcements</h2>
-
-        <h2>News</h2>
-
-        {/* {announcements.map(a => (
-          <Announcement key={a.title} title={a.title} content={a.content} />
-        ))} */}
-
-        {/* <EventListener target="window" handleMessage={this.handledisplayNews} /> */}
-
-        {/* {this.state.displayNews && ( */}
-        {/* <ArticlesContainer
-          postsWanted={globalVars.feed.postsWanted}
-          contentType={globalVars.feed.feedType}
-        /> */}
+        <Card>
+          <CardTitle>{intl.formatMessage({ id: 'news.title' })}</CardTitle>
+          <CardSubTitlte>
+            {intl.formatMessage({ id: 'news.subtitle' })}
+          </CardSubTitlte>
+          {articles.map((a, i) => <Article key={`${a.title}_${i}`} {...a} />)}
+          <CardReadMore link="#" />
+        </Card>
       </section>
     )
   }
 }
 
-export default FeedContainer
+FeedContainer.propTypes = {
+  intl: intlShape,
+}
+
+export default injectIntl(FeedContainer)

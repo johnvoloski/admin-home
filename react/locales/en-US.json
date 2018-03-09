@@ -59,5 +59,16 @@
     "Learn how to improve the performance of your store,",
   "metric.charttabs.exterallink.label": "click here",
   "metric.chart.emptydata":
-    "Lack of data for these parameters. Try another combination."
+    "Lack of data for these parameters. Try another combination.",
+
+  "announcements.title": "Announcements",
+  "announcements.subtitle": "Latest news about the VTEX platform",
+  "news.title": "Blog",
+  "news.subtitle": "Latest news about the eCommerce world",
+  "hello-title": "Home",
+  "hello-subtitle": "Good morning,",
+  "status.title": "Platform Status",
+  "status.subtitle": "Status of VTEX services.",
+  "status.incident.last.link": "Last incident",
+  "status.incident.last.time": "was {value}"
 }
