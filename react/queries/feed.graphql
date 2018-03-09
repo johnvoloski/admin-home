@@ -1,0 +1,21 @@
+query {
+  helpEntries(contentType: "updates", limit: 6) {
+    id
+    createdAt
+    locale
+    title
+    slug
+    synopsis
+    image
+  }
+	blogEntries(contentType: "globalBlogPostV2", limit: 6) {
+    id
+    createdAt
+    locale
+    title
+    uri
+    intro
+    content
+    published
+  }
+}

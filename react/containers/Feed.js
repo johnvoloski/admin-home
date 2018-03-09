@@ -1,5 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
+import { graphql, compose } from 'react-apollo'
 
 import Card from '../components/Card'
 import CardTitle from '../components/CardTitle'
@@ -8,29 +10,20 @@ import CardReadMore from '../components/CardReadMore'
 import Article from '../components/Articles/Article'
 import Announcement from '../components/Announcement'
 
-class FeedContainer extends React.Component {
-  render() {
-    const { intl } = this.props
+import feedQuery from '../queries/feed.graphql'
 
-    const announcements = [
-      {
-        title: 'Requisições com paginação na API de busca vão mudar',
-        date: '03/07/2018',
-        link: '#',
-        image:
-          'https://image.ibb.co/bUWgQ7/Screen_Shot_2018_03_08_at_19_09_03.png',
-        content:
-          'A partir de 31 de março, as requisições com paginação na API de busca não vão mais poder ser feitas com o header resources do request.',
-      },
-      {
-        title: 'Novo Admin já está sendo liberado para todas as lojas',
-        date: '03/01/2018',
-        link: '#',
-        image: 'https://image.ibb.co/nDG4dS/icon.png',
-        content:
-          'Depois de passar um tempo em beta, podendo ser testado por uma parte dos nossos clientes, o novo Admin foi melhorado e vai começar a ser liberado.',
-      },
-    ]
+class FeedContainer extends React.Component {
+  static propTypes = {
+    data: PropTypes.object,
+    intl: intlShape,
+  }
+
+  render() {
+    const { intl, data: {loading, helpEntries, blogEntries} } = this.props
+    if (loading) {
+      return null
+    }
+    console.log(helpEntries, blogEntries)
 
     const articles = [
       {
@@ -74,8 +67,15 @@ class FeedContainer extends React.Component {
           <CardSubTitlte>
             {intl.formatMessage({ id: 'announcements.subtitle' })}
           </CardSubTitlte>
-          {announcements.map((a, i) => (
-            <Announcement key={`${a.title}_${i}`} {...a} />
+          {helpEntries.map((a, i) => (
+            <Announcement
+              key={i}
+              title={a.title}
+              date={a.createdAt}
+              link={`https://help.vtex.com/${a.locale}/announcement/${a.slug}`}
+              image={a.image}
+              content={a.synopsis}
+              />
           ))}
           <CardReadMore link="https://help.vtex.com/pt/announcements" />
         </Card>
@@ -93,8 +93,11 @@ class FeedContainer extends React.Component {
   }
 }
 
-FeedContainer.propTypes = {
-  intl: intlShape,
-}
-
-export default injectIntl(FeedContainer)
+export default compose(
+  graphql(feedQuery, {
+    options: {
+      ssr: false,
+    },
+  }),
+  injectIntl,
+)(FeedContainer)
