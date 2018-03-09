@@ -147,7 +147,6 @@ class IntegrationsContainer extends React.Component {
           ],
         },
       ],
-      chartIsLoading: false,
       pagePath: globalVars.chartTabs[0].type,
       timePeriod: 7,
     }

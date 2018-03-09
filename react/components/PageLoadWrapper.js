@@ -37,6 +37,7 @@ class PageLoadWrapper extends Component {
       pagePath,
       timePeriod,
     } = nextProps
+    this.setState({chartIsLoading: loading})
     if (!loading) {
       this.handleMetricPageload(pageLoadMetric, pagePath, timePeriod)
     }
