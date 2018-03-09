@@ -1,7 +1,8 @@
 // const cookie = require('cookie-dough')()
 
 import React from 'react'
-import {graphql, compose} from 'react-apollo'
+import PropTypes from 'prop-types'
+import { graphql, compose } from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
 
 import homeDataQuery from '../queries/home.graphql'
@@ -9,7 +10,7 @@ import homeDataQuery from '../queries/home.graphql'
 import ColumnTitle from '../components/Titles/Column'
 import DataItemsList from '../components/DataItems/DataItemsList'
 import PageLoadWrapper from '../components/PageLoadWrapper'
-import NextActions from './NextActions'
+import DataItem from '../components/DataItems/DataItem'
 import Performance from './Performance'
 
 import { globalVars } from '../constants'
@@ -42,8 +43,12 @@ let pageLoadKey = ''
 let pageLoadGlobalKey = ''
 
 class IntegrationsContainer extends React.Component {
-  constructor() {
-    super()
+  static contextTypes = {
+    account: PropTypes.string,
+  }
+
+  constructor(props) {
+    super(props)
 
     this.state = {
       withBridge: false,
@@ -59,7 +64,7 @@ class IntegrationsContainer extends React.Component {
               responseCountLocation: 'totalProductError',
               link:
                 '.vtexcommercestable.com.br/admin/bridge/#/marketplace/product?page=1&per_page=15&status=erro',
-              value: '0',
+              value: 0,
             },
             {
               src: 'home/metrics/pricebridge/error',
@@ -67,7 +72,7 @@ class IntegrationsContainer extends React.Component {
               responseCountLocation: 'totalPriceError',
               link:
                 '.vtexcommercestable.com.br/admin/bridge/#/marketplace/price?page=1&per_page=15&status=erro',
-              value: '0',
+              value: 0,
             },
             {
               src: 'home/metrics/orderbridge/error',
@@ -75,7 +80,7 @@ class IntegrationsContainer extends React.Component {
               responseCountLocation: 'totalOrderError',
               link:
                 '.vtexcommercestable.com.br/admin/bridge/#/marketplace/order?page=1&per_page=15&status=erro',
-              value: '0',
+              value: 0,
             },
           ],
         },
@@ -88,7 +93,7 @@ class IntegrationsContainer extends React.Component {
               label: 'integrations.bridge.items.1.0.label',
               link:
                 '.vtexcommercestable.com.br/admin/checkout/#/orders?orderBy=creationDate,desc&page=1&f_status=payment-pending',
-              value: '0',
+              value: 0,
             },
             {
               src: 'home/metrics/pendingorders/boletoexp',
@@ -99,7 +104,7 @@ class IntegrationsContainer extends React.Component {
               label: 'integrations.bridge.items.1.1.label',
               link:
                 '.vtexcommercestable.com.br/admin/checkout/#/orders?orderBy=creationDate,desc&page=1&f_paymentNames=Boleto%20Banc%C3%A1rio&f_status=payment-pending',
-              value: '0',
+              value: 0,
             },
           ],
         },
@@ -110,7 +115,7 @@ class IntegrationsContainer extends React.Component {
               src: 'home/metrics/inactiveskulist/withstock',
               label: 'integrations.bridge.items.2.1.label',
               cta: 'integrations.bridge.items.2.1.cta',
-              value: '0',
+              value: 0,
             },
             {
               src: 'home/metrics/productmostvisitednostock',
@@ -158,7 +163,7 @@ class IntegrationsContainer extends React.Component {
                 '.vtexcommercestable.com.br/admin/Site/ProdutoForm.aspx?id=',
               label: 'integrations.bridge.items.2.0.label',
               link: '.vtexcommercestable.com.br/admin/Site/Produto.aspx',
-              value: '0',
+              value: 0,
             },
           ],
         },
@@ -306,37 +311,75 @@ class IntegrationsContainer extends React.Component {
 
   getI18nStr = id => this.props.intl.formatMessage({ id })
 
-  handleTabChange = (pagePath) => {
-    this.setState({pagePath})
+  handleTabChange = pagePath => {
+    this.setState({ pagePath })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const h = nextProps.homeData
+
+    // YES ugly
+
+    // group 1, Bridge
+    if (h.errorMetric.totalProductError > 0) {
+      const integrations = this.state.integrations
+      integrations[0].items[0].value = h.errorMetric.totalProductError
+      this.setState({ integrations })
+    }
+    if (h.errorMetric.totalPriceError > 0) {
+      const integrations = this.state.integrations
+      integrations[0].items[1].value = h.errorMetric.totalPriceError
+      this.setState({ integrations })
+    }
+    if (h.errorMetric.totalOrderError > 0) {
+      const integrations = this.state.integrations
+      integrations[0].items[2].value = h.errorMetric.totalOrderError
+      this.setState({ integrations })
+    }
+
+    // group 2 Payments
+    if (h.pendingOrders.paging.total > 0) {
+      const integrations = this.state.integrations
+      integrations[1].items[0].value = h.pendingOrders.paging.total
+      this.setState({ integrations })
+    }
+    if (h.pendingBankSlips.count > 0) {
+      const integrations = this.state.integrations
+      integrations[1].items[1].value = h.pendingBankSlips.count
+      this.setState({ integrations })
+    }
+
+    // group 2 Catalog
+    if (h.mostVisitedProductsNoStock.totalProductCount > 0) {
+      const integrations = this.state.integrations
+      integrations[2].items[1].value =
+        h.mostVisitedProductsNoStock.totalProductCount
+      this.setState({ integrations })
+    }
   }
 
   render() {
-    const { homeData } = this.props
-    const { pagePath, timePeriod } = this.state
+    const { homeData, intl } = this.props
+    const { pagePath, timePeriod, integrations } = this.state
 
     return (
-      <section className="w-100 w-50-l ph3-ns">
+      <section className="">
         <ColumnTitle title="integrations.title" />
 
-        {/* {this.state.bridgeFetched &&
-          this.state.integrations.map((integration, listIndex) => (
-            <DataItemsList
-              listIndex={listIndex}
-              key={integration.title}
-              title={integration.title}
-              items={integration.items}
-            />
-          ))} */}
+        {integrations.map((integration, listIndex) => (
+          <DataItemsList
+            key={integration.title}
+            listIndex={listIndex}
+            title={integration.title}
+            items={integration.items}
+          />
+        ))}
 
-        <NextActions />
-
-        <Performance />
         <PageLoadWrapper
           pagePath={pagePath}
           timePeriod={timePeriod}
           handleChange={this.handleTabChange}
         />
-
       </section>
     )
   }
@@ -349,7 +392,7 @@ IntegrationsContainer.propTypes = {
 export default compose(
   graphql(homeDataQuery, {
     name: 'homeData',
-    options: { ssr: false, variables: {productsTimePeriod: 0} },
+    options: { ssr: false, variables: { productsTimePeriod: 0 } },
   }),
-  injectIntl
+  injectIntl,
 )(IntegrationsContainer)
