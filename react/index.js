@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Hello from './containers/Hello'
 import FeedContainer from './containers/Feed'
-import Today from './containers/Today'
+// import Today from './containers/Today'
 import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
 
