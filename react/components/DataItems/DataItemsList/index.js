@@ -32,7 +32,9 @@ class DataItemsList extends React.Component {
         )} */}
 
         {/* <div> */}
-        <h3 className="mt4 mb0 f4 lh-copy font-display">
+        <h3 
+          className="mt4 mb0 f4 lh-copy font-display" 
+          style={ {borderBottom: '1px solid #EEF3F9'}} >
           {this.getI18nStr(this.props.title)}
         </h3>
 

@@ -13,15 +13,15 @@ class Announcement extends React.Component {
           href={link}
           target="_blank"
         >
-          <div className="w-20">
+          <div className="w-20 pa2">
             <img
               src={image}
-              style={{ maxWidth: '100%', borderRadius: '50%' }}
+              style={{ maxWidth: '100%', borderRadius: '50%', width: '50px', height: '50px' }}
             />
           </div>
-          <div className="w-70">
-            <h3 className="mt0 serious-black">{title}</h3>
-            <p>{content}</p>
+          <div className="w-80">
+            <h3 className="mt0 mb0 serious-black">{title}</h3>
+            <p className="ma0">{content}</p>
             <p className="f6 gray">{intl.formatRelative(date)}</p>
           </div>
         </a>

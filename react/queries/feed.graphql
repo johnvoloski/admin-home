@@ -1,8 +1,8 @@
 query {
-  helpEntries(contentType: "updates", limit: 6) {
+  helpEntries(contentType: "updates", limit: 3) {
     id
     createdAt
-    locale
+    locale 
     title
     slug
     synopsis

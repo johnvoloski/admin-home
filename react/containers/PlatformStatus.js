@@ -104,7 +104,7 @@ class PlatformStatus extends Component {
                 src="https://image.ibb.co/e4sudS/Screen_Shot_2018_03_08_at_19_54_18.png"
                 style={{ position: 'relative', top: '10px' }}
               />
-              <span className="status-status-label f1 fw6 green">
+              <span className="status-status-label f2 fw6 green">
                 {intl.formatMessage({ id: 'status.situation.ok' })}
               </span>
             </div>
@@ -120,7 +120,7 @@ class PlatformStatus extends Component {
                   height: 'auto',
                 }}
               />
-              <span className="status-status-label f1 fw6 yellow">
+              <span className="status-status-label f2 fw6 yellow">
                 {intl.formatMessage({ id: 'status.situation.error' })}
               </span>
               {modulesWithErrors.length > 0 && (
