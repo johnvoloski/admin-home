@@ -23,40 +23,6 @@ class FeedContainer extends React.Component {
     if (loading) {
       return null
     }
-    console.log(helpEntries, blogEntries)
-
-    const articles = [
-      {
-        title:
-          'Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!',
-        date: '02/23/2018',
-        content:
-          'Nos dias 3 e 4 de Outubro participe do Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!  Para os clientes e…',
-        link: '#',
-      },
-      {
-        title: 'Evento Black Friday',
-        date: '02/06/2018',
-        content:
-          'A VTEX vai promover um evento com o objetivo de capacitar nossas agências e clientes para a maior data do varejo brasileiro: BLACK FRIDAY! O evento…',
-        link: '#',
-      },
-      {
-        title:
-          'Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!',
-        date: '01/29/2018',
-        content:
-          'Nos dias 3 e 4 de Outubro participe do Workshop Neuromarketing - Neurociência do Comportamento do Consumidor na Prática!  Para os clientes e…',
-        link: '#',
-      },
-      {
-        title: 'Evento Black Friday',
-        date: '12/29/2017',
-        content:
-          'A VTEX vai promover um evento com o objetivo de capacitar nossas agências e clientes para a maior data do varejo brasileiro: BLACK FRIDAY! O evento…',
-        link: '#',
-      },
-    ]
 
     return (
       <section className="serious-black pv6">
@@ -67,14 +33,14 @@ class FeedContainer extends React.Component {
           <CardSubTitlte>
             {intl.formatMessage({ id: 'announcements.subtitle' })}
           </CardSubTitlte>
-          {helpEntries.map((a, i) => (
+          {helpEntries.map((e, i) => (
             <Announcement
               key={i}
-              title={a.title}
-              date={a.createdAt}
-              link={`https://help.vtex.com/${a.locale}/announcement/${a.slug}`}
-              image={a.image}
-              content={a.synopsis}
+              title={e.title}
+              date={e.createdAt}
+              link={`https://help.vtex.com/${e.locale}/announcement/${e.slug}`}
+              image={e.image}
+              content={e.synopsis}
               />
           ))}
           <CardReadMore link="https://help.vtex.com/pt/announcements" />
@@ -85,7 +51,14 @@ class FeedContainer extends React.Component {
           <CardSubTitlte>
             {intl.formatMessage({ id: 'news.subtitle' })}
           </CardSubTitlte>
-          {articles.map((a, i) => <Article key={`${a.title}_${i}`} {...a} />)}
+          {blogEntries.map((e, i) => (
+            <Article key={i}
+              title={e.title}
+              date={e.createdAt}
+              content={e.intro}
+              link={`https://blog.vtex.com/${e.uri}`}
+            />
+          ))}
           <CardReadMore link="https://blog.vtex.com/" />
         </Card>
       </section>
