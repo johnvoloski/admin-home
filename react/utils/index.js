@@ -33,7 +33,25 @@ export const valueToFloor = value => Math.floor(value)
 
 export const isYesterday = date => date.isSame(YESTERDAY, 'd')
 
-
-export const formatValue = (value) => {
+export const formatValue = value => {
   return isNaN(value) || value === 0 ? null : setToSeconds(value)
+}
+
+export const getGreetingTime = () => {
+  let g = null
+  const m = moment()
+
+  const splitAfternoon = 12
+  const splitEvening = 18
+  const currentHour = parseFloat(m.format('HH'))
+
+  if (currentHour >= splitAfternoon && currentHour <= splitEvening) {
+    g = 'afternoon'
+  } else if (currentHour >= splitEvening) {
+    g = 'evening'
+  } else {
+    g = 'morning'
+  }
+
+  return g
 }

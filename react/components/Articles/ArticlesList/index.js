@@ -33,7 +33,7 @@ class ArticlesList extends React.Component {
     return (
       trimmedStr.substr(
         0,
-        Math.min(trimmedStr.length, trimmedStr.lastIndexOf(' '))
+        Math.min(trimmedStr.length, trimmedStr.lastIndexOf(' ')),
       ) + '…'
     )
   }

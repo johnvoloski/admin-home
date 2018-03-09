@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 
 import DataItem from '../DataItem'
-import SectionTitle from '../../Titles/Section'
-import SectionSubTitle from '../../Titles/Section/SectionSubTitle'
+// import SectionTitle from '../../Titles/Section'
+// import SectionSubTitle from '../../Titles/Section/SectionSubTitle'
 
-import { any } from 'ramda'
+// import { any } from 'ramda'
 
 class DataItemsList extends React.Component {
   constructor(props) {

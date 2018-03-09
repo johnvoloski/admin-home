@@ -91,38 +91,6 @@
 }
 
 /* --- --- --- */
-/* === Pivotal UI Vertical Tabs === */
-/* --- --- --- */
-
-.nav-stacked > li + li {
-  margin-top: 0;
-}
-
-.tab-left .nav li a {
-  position: relative;
-  background: none;
-  cursor: pointer;
-  border-radius: 0;
-  outline: 0;
-}
-.tab-left .nav a > div {
-  outline: none;
-}
-.vertical-tabs .nav a:hover svg {
-  fill: #8914cc;
-}
-.tab-left .nav li.active a,
-.tab-left .nav li a:hover,
-.tab-left .nav a:focus {
-  color: #8914cc;
-}
-.tab-left .nav .active a svg,
-.tab-left .nav a:hover svg,
-.tab-left .nav a:focus svg {
-  fill: #8914cc;
-}
-
-/* --- --- --- */
 /* === Integrations' tooltips === */
 /* --- --- --- */
 

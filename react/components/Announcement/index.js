@@ -9,7 +9,7 @@ class Announcement extends React.Component {
     return (
       <div>
         <a
-          className="dib pa3 w-100 lh-copy dark-gray link hover-no-underline hover-bg-near-white damp-green hover-dark-green flex flex-row space-between bb b--washed-blue bw1 mb6"
+          className="dib pa3 w-100 lh-copy dark-gray link hover-no-underline hover-bg-near-white flex flex-row space-between bb b--washed-blue bw1 mb6"
           href={link}
           target="_blank"
         >
@@ -36,6 +36,7 @@ Announcement.propTypes = {
   link: PropTypes.string,
   date: PropTypes.string,
   image: PropTypes.string,
+  intl: intlShape,
 }
 
 export default injectIntl(Announcement)

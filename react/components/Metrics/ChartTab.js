@@ -13,10 +13,10 @@ class ChartTab extends React.Component {
     return (
       <button
         className={
-          'chart-tab br--top pr2 pl2 relative bl br-0 bt bb b--black-20 ' +
+          'chart-tab pr2 pl2 relative bn link ' +
           (activePage === type
-            ? ' active elite-purple bg-near-white bb--red '
-            : ' bb-1 bg-white ') +
+            ? ' active elite-purple bg-near-white '
+            : ' bg-white ') +
           (isLoading && ' loading ')
         }
         style={{

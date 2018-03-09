@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { graphql } from 'react-apollo'
 import { FormattedMessage } from 'react-intl'
+import { getGreetingTime } from '../utils'
 
 import profileDataQuery from '../queries/profileData.graphql'
 
@@ -12,7 +13,7 @@ class Hello extends React.Component {
 
     return (
       <section
-        className="hello-container w-50"
+        className="hello-container"
         style={{
           marginTop: '3rem',
           marginLeft: '6rem',
@@ -30,7 +31,7 @@ class Hello extends React.Component {
           </span>
         </div>
         <div className="hello-subtitle f2 mid-gray fw1 tracked-tight">
-          <FormattedMessage id="hello-subtitle" />{' '}
+          <FormattedMessage id={`hello-subtitle-${getGreetingTime()}`} />{' '}
           <span className="hello-username fw5 dark-gray">{name}</span>.
         </div>
       </section>

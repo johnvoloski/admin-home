@@ -17,7 +17,7 @@ class ChartTabs extends React.Component {
     const { chartIsLoading, activePage, tabClick, activeDayTab } = this.props
 
     return (
-      <div className="chart-tabs flex justify-between items-baseline flex-wrap flex-nowrap-l flex-column flex-row-l f7 f6-l fw5">
+      <div className="chart-tabs mb4 flex justify-between items-baseline flex-wrap flex-nowrap-m flex-column flex-row-m f7 f6-m fw5">
         <div className="order-1 order-1-0">
           {globalVars.chartTabs.map(tab => (
             <ChartTab
@@ -32,7 +32,7 @@ class ChartTabs extends React.Component {
           ))}
         </div>
 
-        <div className="order-0 order-1-l w-100 w-auto-l tr mb2 mb0-l">
+        <div className="order-0 order-1-m w-100 w-auto-m tr mb2 mb0-m">
           {globalVars.chartTimeFilters.map(tab => (
             <DayButton
               key={`dayFilter_${tab.value}`}
