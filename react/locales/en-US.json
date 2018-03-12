@@ -1,4 +1,7 @@
 {
+  "metric.sessions": "sessions",
+  "metric.orders": "orders",
+  "metric.averageTicket": "average ticket",
   "integrations.title": "Data",
   "integrations.actions.title": "Next Actions",
   "integrations.actions.subTitle": "Suggested actions to improve your revenue",

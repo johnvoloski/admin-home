@@ -60,6 +60,10 @@
   "metric.chart.emptydata":
     "Falta de dados para esses parâmetros. Tente outra combinação.",
 
+  "metric.sessions": "sessões",
+  "metric.orders": "pedidos",
+  "metric.averageTicket": "ticket médio",
+
   "announcements.title": "Anúncios",
   "announcements.subtitle": "Últimas notícias sobre a plataforma VTEX",
   "news.title": "Blog",

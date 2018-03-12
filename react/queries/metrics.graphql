@@ -1,0 +1,8 @@
+query metricsQuery($from: String, $to: String) {
+  ordersPlaced(from: $from, to: $to) {
+    count
+  }
+  sessions(from: $from, to: $to) {
+    count
+  }
+}

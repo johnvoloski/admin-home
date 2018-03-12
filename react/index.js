@@ -6,6 +6,7 @@ import Feed from './containers/Feed'
 import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
 import RedBlock from './containers/RedBlock'
+import MetricCard from './components/MetricCard'
 
 // eslint-disable-next-line
 class Admin extends Component {
@@ -22,7 +23,7 @@ class Admin extends Component {
         >
           <div className="flex flex-column w-40-l w-100">
             <Hello />
-            {/* <Today /> */}
+            <MetricCard />
             <IntegrationsContainer />
           </div>
           <div className="flex flex-column w-40-l w-100 mt8">
