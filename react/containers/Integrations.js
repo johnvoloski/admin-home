@@ -154,6 +154,7 @@ class IntegrationsContainer extends React.Component {
               items={integration.items}
             />
           ))}
+
           <NoStockProduct
             timePeriod={dataItemTimePeriod}
             listIndex={1}

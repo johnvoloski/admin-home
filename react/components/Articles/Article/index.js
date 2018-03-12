@@ -20,7 +20,9 @@ class Article extends React.Component {
             textOverflow: 'ellipsis',
           }}
         >
-          <h3 className="mt0 f5 fw4 lh-copy font-display mid-gray">{title}</h3>
+          <h3 className="mt0 f5 fw4 lh-copy font-display mid-gray truncate nowrap">
+            {title}
+          </h3>
         </header>
         <p className="tr w-25 ma0 lh-copy font-body f5 gray">
           {intl.formatDate(date, {
