@@ -1,7 +1,7 @@
 {
   "name": "admin-home",
   "vendor": "vtex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "title": "VTEX Admin Home",
   "description": "The home for your VTEX admin",
   "mustUpdateAt": "2019-03-01",
