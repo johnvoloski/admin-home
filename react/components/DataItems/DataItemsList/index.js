@@ -16,12 +16,10 @@ class DataItemsList extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.hasValue(nextProps.items)) {
       this.setState({ sectionIsNotEmpty: true })
-      return true
     }
-    return false
   }
 
   moreThanZero(item) {
