@@ -37,7 +37,7 @@ class PageLoadWrapper extends Component {
       pagePath,
       timePeriod,
     } = nextProps
-    this.setState({chartIsLoading: loading})
+    this.setState({ chartIsLoading: loading })
     if (!loading) {
       this.handleMetricPageload(pageLoadMetric, pagePath, timePeriod)
     }
@@ -46,6 +46,9 @@ class PageLoadWrapper extends Component {
   handleMetricPageload(data, type, days) {
     const formattedData = []
 
+    if (!data) {
+      return
+    }
     data.knotList.forEach(item => {
       const formatedItem = {
         date: item.date,
