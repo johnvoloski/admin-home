@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 import { intlShape, injectIntl } from 'react-intl'
-import { isEmpty, isNil } from 'ramda'
 
 import pageLoadQuery from '../queries/pageLoad.graphql'
-import { setToSeconds, valueToFloor, isYesterday, formatValue } from '../utils'
+import { valueToFloor, isYesterday, formatValue } from '../utils'
+import moment from 'moment'
 
 import MetricPageload from './Metrics/'
 
 class PageLoadWrapper extends Component {
-  getI18nStr = id => this.props.intl.formatMessage({ id })
-
   constructor(props) {
     super(props)
     this.state = {
@@ -25,10 +23,12 @@ class PageLoadWrapper extends Component {
   }
 
   componentDidMount() {
-    this.pageLoadKey = this.getI18nStr('metric.pageload.legend.pageLoadStore')
-    this.pageLoadGlobalKey = this.getI18nStr(
-      'metric.pageload.legend.pageLoadGlobal',
-    )
+    this.pageLoadKey = this.props.intl.formatMessage({
+      id: 'metric.pageload.legend.pageLoadStore',
+    })
+    this.pageLoadGlobalKey = this.props.intl.formatMessage({
+      id: 'metric.pageload.legend.pageLoadGlobal',
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +83,6 @@ class PageLoadWrapper extends Component {
   render() {
     const {
       pageload,
-      chartData,
       avgGlobalLoad,
       avgStoreLoad,
       bestPageLoadStore,
@@ -110,6 +109,7 @@ class PageLoadWrapper extends Component {
 }
 
 PageLoadWrapper.propTypes = {
+  intl: intlShape,
   pagePath: PropTypes.string.isRequired,
   timePeriod: PropTypes.number.isRequired,
   tabClick: PropTypes.func.isRequired,

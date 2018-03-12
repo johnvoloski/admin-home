@@ -4,6 +4,8 @@ import { intlShape, injectIntl } from 'react-intl'
 
 import DataItem from '../DataItem'
 
+import { any } from 'ramda'
+
 class DataItemsList extends React.Component {
   constructor(props) {
     super(props)
@@ -14,35 +16,53 @@ class DataItemsList extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.hasValue(nextProps.items)) {
+      this.setState({ sectionIsNotEmpty: true })
+      return true
+    }
+    return false
+  }
+
+  moreThanZero(item) {
+    return item.value > 0
+  }
+
+  hasValue(items) {
+    return any(this.moreThanZero)(items)
+  }
+
   render() {
     const { title, items } = this.props
 
     return (
-      <div>
-        <h3
-          className="mt4 mb0 f4 lh-copy font-display"
-          style={{ borderBottom: '1px solid #EEF3F9' }}
-        >
-          {title}
-        </h3>
+      this.state.sectionIsNotEmpty && (
+        <div>
+          <h3
+            className="mt4 mb0 f4 lh-copy font-display"
+            style={{ borderBottom: '1px solid #EEF3F9' }}
+          >
+            {title}
+          </h3>
 
-        <div className="data-items flex flex-wrap items-start black-70">
-          {items.map((dataitem, index) => (
-            <DataItem
-              key={index + '+dataItem'}
-              value={dataitem.value}
-              label={dataitem.label}
-              cta={dataitem.cta}
-              link={dataitem.link}
-              tooltipLink={dataitem.tooltipLink}
-              tooltipItems={dataitem.tooltip}
-              loss={dataitem.loss}
-              currencyCode={dataitem.currencyCode}
-              tabs={dataitem.tabs}
-            />
-          ))}
+          <div className="data-items flex flex-wrap items-start black-70">
+            {items.map((dataitem, index) => (
+              <DataItem
+                key={index + '+dataItem'}
+                value={dataitem.value}
+                label={dataitem.label}
+                cta={dataitem.cta}
+                link={dataitem.link}
+                tooltipLink={dataitem.tooltipLink}
+                tooltipItems={dataitem.tooltip}
+                loss={dataitem.loss}
+                currencyCode={dataitem.currencyCode}
+                tabs={dataitem.tabs}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )
     )
   }
 }
