@@ -8,7 +8,6 @@ import homeDataQuery from '../queries/home.graphql'
 import DataItemsList from '../components/DataItems/DataItemsList'
 import NoStockProduct from '../components/DataItems/NoStockProduct'
 import PageLoadWrapper from '../components/PageLoadWrapper'
-import Performance from './Performance'
 import Card from '../components/Card'
 import CardTitle from '../components/CardTitle'
 import CardSubTitlte from '../components/CardSubTitlte'
@@ -124,12 +123,18 @@ class IntegrationsContainer extends React.Component {
   }
 
   handleDataItemTabClick = (timePeriod, tab) => {
-    this.setState({dataItemTimePeriod: timePeriod, dataItemTab: tab})
+    this.setState({ dataItemTimePeriod: timePeriod, dataItemTab: tab })
   }
 
   render() {
-    const { homeData, intl } = this.props
-    const { pagePath, pageLoadTimePeriod, dataItemTimePeriod, dataItemTab, integrations } = this.state
+    const { intl } = this.props
+    const {
+      pagePath,
+      pageLoadTimePeriod,
+      dataItemTimePeriod,
+      dataItemTab,
+      integrations,
+    } = this.state
 
     return (
       <section className="integrations-container">
@@ -145,7 +150,7 @@ class IntegrationsContainer extends React.Component {
             <DataItemsList
               key={integration.title}
               listIndex={listIndex}
-              title={integration.title}
+              title={intl.formatMessage({ id: integration.title })}
               items={integration.items}
             />
           ))}
@@ -177,6 +182,7 @@ class IntegrationsContainer extends React.Component {
 
 IntegrationsContainer.propTypes = {
   intl: intlShape,
+  homeData: PropTypes.any,
   lastCheck: PropTypes.string,
 }
 

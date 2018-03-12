@@ -12,14 +12,14 @@ import Announcement from '../components/Announcement'
 
 import feedQuery from '../queries/feed.graphql'
 
-class FeedContainer extends React.Component {
+class Feed extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     intl: intlShape,
   }
 
   render() {
-    const { intl, data: {loading, helpEntries, blogEntries} } = this.props
+    const { intl, data: { loading, helpEntries, blogEntries } } = this.props
     if (loading) {
       return null
     }
@@ -41,7 +41,7 @@ class FeedContainer extends React.Component {
               link={`https://help.vtex.com/${e.locale}/announcement/${e.slug}`}
               image={e.image}
               content={e.synopsis}
-              />
+            />
           ))}
           <CardReadMore link="https://help.vtex.com/pt/announcements" />
         </Card>
@@ -52,7 +52,8 @@ class FeedContainer extends React.Component {
             {intl.formatMessage({ id: 'news.subtitle' })}
           </CardSubTitlte>
           {blogEntries.map((e, i) => (
-            <Article key={i}
+            <Article
+              key={i}
               title={e.title}
               date={e.createdAt}
               content={e.intro}
@@ -73,4 +74,4 @@ export default compose(
     },
   }),
   injectIntl,
-)(FeedContainer)
+)(Feed)

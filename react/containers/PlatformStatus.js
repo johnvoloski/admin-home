@@ -72,7 +72,7 @@ class PlatformStatus extends Component {
     const {
       modulesWithErrors,
       hasNoErrors,
-      latestCheck,
+      // latestCheck,
       lastIncident,
       incidentLink,
     } = this.state
@@ -84,7 +84,7 @@ class PlatformStatus extends Component {
             <div className="w-70">
               {intl.formatMessage({ id: 'status.title' })}
             </div>
-            <div
+            {/* <div
               className="status-lastevrification w-30 tr"
               style={{ right: 0 }}
             >
@@ -95,7 +95,7 @@ class PlatformStatus extends Component {
               <span className="gray" style={{ fontSize: '14px' }}>
                 {intl.formatRelative(latestCheck)}
               </span>
-            </div>
+            </div> */}
           </div>
         </CardTitle>
         <CardSubTitlte>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import Hello from './containers/Hello'
-import FeedContainer from './containers/Feed'
+import Feed from './containers/Feed'
 // import Today from './containers/Today'
 import PlatformStatus from './containers/PlatformStatus'
 import IntegrationsContainer from './containers/Integrations'
@@ -26,8 +26,8 @@ class Admin extends Component {
             <IntegrationsContainer />
           </div>
           <div className="flex flex-column w-40-l w-100 mt8">
-            <PlatformStatus lastCheck="2018-03-08T20:06:10" />
-            <FeedContainer />
+            <PlatformStatus />
+            <Feed />
           </div>
         </div>
         <RedBlock />

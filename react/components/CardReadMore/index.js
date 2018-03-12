@@ -8,16 +8,20 @@ class CardReadMore extends React.Component {
 
     return (
       <p className="tr b f5">
-        <a
-          href={this.props.link}
-          style={{
-            color: '#368DF7',
-          }}
-          className="link"
-          target="_blank"
-        >
-          {intl.formatMessage({ id: 'see.more' })}{' '}
-          <span className="chevron-right f3">›</span>
+        <a href={this.props.link} className="link blue" target="_blank">
+          <span>{intl.formatMessage({ id: 'see.more' })}</span>
+          <span className="relative" style={{ top: '7px' }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g fill="#368DF7">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+              </g>
+            </svg>
+          </span>
         </a>
       </p>
     )

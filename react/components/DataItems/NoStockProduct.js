@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
-import { injectIntl } from 'react-intl'
+import { injectIntl, intlShape } from 'react-intl'
 
 import mostVisitedProductsNoStock from '../../queries/noStock.graphql'
 
 import DataItem from './DataItem'
 
 class NoStockProduct extends Component {
-  getI18nStr = id => this.props.intl.formatMessage({ id })
-
   constructor(props) {
     super(props)
     this.state = {
@@ -61,7 +59,7 @@ class NoStockProduct extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { data: { mostVisitedProductsNoStock, loading } } = nextProps
-    // group 2 Catalog
+    // group 3 Catalog
     if (!loading && mostVisitedProductsNoStock.totalProductCount > 0) {
       const item = this.state.item
       item.value = mostVisitedProductsNoStock.totalProductCount
@@ -70,12 +68,19 @@ class NoStockProduct extends Component {
   }
 
   render() {
-    const { listIndex, handleTabClick, data: { loading }, activeTab } = this.props
+    const {
+      intl,
+      listIndex,
+      handleTabClick,
+      data: { loading },
+      activeTab,
+    } = this.props
     const { item: { value, label, link, tooltipLink, tabs } } = this.state
+
     return (
       <div>
         <h3 className="mt4 mb0 f4 lh-copy font-display">
-          {this.getI18nStr('integrations.catalog.title')}
+          {intl.formatMessage({ id: 'integrations.catalog.title' })}
         </h3>
         <div className="data-items flex flex-wrap items-start black-70">
           <DataItem
@@ -96,6 +101,7 @@ class NoStockProduct extends Component {
 }
 
 NoStockProduct.propTypes = {
+  intl: intlShape,
   timePeriod: PropTypes.number.isRequired,
   listIndex: PropTypes.number.isRequired,
   handleTabClick: PropTypes.func.isRequired,

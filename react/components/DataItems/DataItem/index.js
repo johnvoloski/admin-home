@@ -5,8 +5,7 @@ import ReactTooltip from 'react-tooltip'
 import ChartTab from '../../Metrics/ChartTab'
 import Loader from '../../Loader'
 import { injectIntl, intlShape } from 'react-intl'
-import { isNil, find, propEq } from 'ramda'
-import axios from 'axios'
+import { isNil } from 'ramda'
 
 class DataItem extends Component {
   getI18nStr = (id, values) => this.props.intl.formatMessage({ id }, values)

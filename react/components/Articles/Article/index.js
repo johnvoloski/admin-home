@@ -14,7 +14,12 @@ class Article extends React.Component {
       >
         <header
           className="w-75"
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           <h3 className="mt0 f5 fw4 lh-copy font-display mid-gray">{title}</h3>
         </header>
         <p className="tr w-25 ma0 lh-copy font-body f5 gray">
@@ -30,10 +35,9 @@ class Article extends React.Component {
 }
 
 Article.propTypes = {
-  intl: intlShape,
+  intl: intlShape.isRequired,
   link: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  excerpt: PropTypes.string,
   date: PropTypes.string,
 }
 
